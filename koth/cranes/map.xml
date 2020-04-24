@@ -1,0 +1,85 @@
+<?xml version="1.0"?>
+<map proto="2.0.0">
+<name>Cranes</name>
+<version>1.0.0</version>
+<game>koth</game>
+<objective>{map.objective.deathmatch.limit,750}</objective>
+<authors>
+    <author uuid="9116d3fa-1400-4ada-aecd-2eae1d73e383"/> <!-- Xuph -->
+</authors>
+<teams>
+    <team id="red"  color="red"  max="7">Red</team>
+    <team id="blue" color="blue" max="7">Blue</team>
+</teams>
+<kits>
+    <kit id="main-kit">
+        <item slot="0" material="stone sword" unsharable="true"/>
+        <item slot="1" material="bow" unsharable="true"/>
+        <item slot="2" material="golden apple" death-drop="false"/>
+        <item slot="8" material="arrow" amount="24" death-drop="false"/>
+        <helmet        material="leather helmet"     team-color="true" locked="true"/>
+        <chestplate    material="leather chestplate" team-color="true" locked="true"/>
+        <leggings      material="iron leggings"      locked="true">
+            <enchantments>
+                <enchantment>protection projectile</enchantment>
+            </enchantments>
+        </leggings>
+        <boots         material="leather boots"      team-color="true" locked="true"/>
+        <effect duration="3" amplifier="10">damage resistance</effect>
+    </kit>
+</kits>
+<hunger>off</hunger>
+<timelock>on</timelock>
+<spawns>
+    <spawn team="blue" kit="main-kit">
+        <region yaw="0">
+            <cuboid min="0.5,5,-37.5" max="-0.5,5,-36.5"/>
+        </region>
+    </spawn>
+    <spawn team="red" kit="main-kit">
+        <region yaw="180">
+            <cuboid min="-0.5,5,37.5" max="0.5,5,36.5"/>
+        </region>
+    </spawn>
+    <default>
+        <region yaw="180">
+            <cuboid min="-0.5,19,21.5" max="0.5,19,21.5"/>
+        </region>
+    </default>
+</spawns>
+<filters>
+      <team id="only-blue">blue</team>
+    <team id="only-red">red</team>
+</filters>
+<regions>
+    <cylinder id="west-capture" base="-13,4,-0" radius="4.5" height="4"/>
+    <cylinder id="west-progress" base="-13,3,-0" radius="4.5" height="1"/>
+    <cylinder id="middle-capture" base="-0,9,-0" radius="4.5" height="4"/>
+    <cylinder id="middle-progress" base="-0,8,-0" radius="4.5" height="1"/>
+    <cylinder id="east-capture" base="13,4,-0" radius="4.5" height="4"/>
+    <cylinder id="east-progress" base="13,3,-0" radius="4.5" height="1"/>
+</regions>
+<applicators>
+    <apply block="never"/>
+</applicators>
+<score limit="750"/>
+<hills capture-time="6s" points="1">
+    <hill name="West"   capture-region="west-capture"   progress-region="west-progress"   control-region="west-progress"/>
+    <hill name="Middle" capture-region="middle-capture" progress-region="middle-progress" control-region="middle-progress"/>
+    <hill name="East"   capture-region="east-capture"   progress-region="east-progress"   control-region="east-progress"/>
+</hills>
+<kill-rewards>
+    <reward>
+        <item material="arrow" amount="12" death-drop="false"/>
+        <item material="golden apple" death-drop="false"/>
+    </reward>
+</kill-rewards>
+<items>
+    <death-drop>
+        <any>
+            <material>golden apple</material>
+            <material>arrow</material>
+        </any>
+    </death-drop>
+</items>
+</map>

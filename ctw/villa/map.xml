@@ -1,0 +1,147 @@
+<?xml version="1.0"?>
+<map proto="2.0.0">
+<name>Villa</name>
+<version>1.0.0</version>
+<game>ctw</game>
+<objective>{map.objective.capture.singular}</objective>
+<authors>
+    <author uuid="6bec5c3a-4934-4b19-9aa8-c7c569820f7d"/> <!-- Claf -->
+</authors>
+<time-limit result="objectives">20m</time-limit>
+<teams>
+    <team id="red-team" color="red" max="5" max-overfill="5">Red</team>
+    <team id="blue-team" color="blue" max="5" max-overfill="5">Blue</team>
+</teams>
+<kits>
+    <kit id="spawn-kit">
+        <item slot="0" material="iron sword"/>
+        <item slot="1" material="bow"/>
+        <item slot="2" material="iron pickaxe">
+            <enchantments>
+                <enchantment>dig speed</enchantment>
+            </enchantments>
+        </item>
+        <item slot="3" material="iron axe">
+            <enchantments>
+                <enchantment>dig speed</enchantment>
+            </enchantments>
+        </item>
+        <item slot="4" amount="64" damage="5" material="wood"/>
+        <item slot="5" amount="24" material="glass"/>
+        <item slot="6" material="iron spade"/>
+        <item slot="7" material="golden apple"/>
+        <item slot="8" amount="64" material="cooked fish"/>
+        <item slot="28" amount="64" material="arrow"/>
+        <effect duration="4s" amplifier="5">damage resistance</effect>
+    </kit>
+</kits>
+<spawns>
+    <spawn team="red-team" kit="spawn-kit">
+        <region yaw="-90">
+            <point>-187.5,8,-84.5</point>
+        </region>
+    </spawn>
+    <spawn team="blue-team" kit="spawn-kit">
+        <region yaw="90">
+            <point>-12.5,8,-84.5</point>
+        </region>
+    </spawn>
+    <default>
+        <region yaw="180">
+            <point>-100.5,13,-56.5</point>
+        </region>
+    </default>
+</spawns>
+<filters>
+    <team id="only-red">red-team</team>
+    <team id="only-blue">blue-team</team>
+    <material id="only-iron">iron block</material>
+    <not id="deny-void">
+        <void/>
+    </not>
+</filters>
+<regions>
+    <block id="orange-monument">-181,9,-85</block>
+    <block id="purple-monument">-20,9,-85</block>
+    <cuboid id="orange-woolroom" min="-8,0,-117" max="-18,25,-105"/>
+    <cuboid id="orange-gearroom" min="-24,0,-64" max="-33,25,-52"/>
+    <cuboid id="purple-woolroom" min="-192,0,-105" max="-182,25,-117"/>
+    <cuboid id="purple-gearroom" min="-176,0,-52" max="-167,25,-64"/>
+    <union id="spawns">
+        <cuboid min="-192,0,-74" max="-166,25,-95"/> <!-- red -->
+        <cuboid min="-8,0,-95" max="-34,25,-74"/> <!-- blue -->
+    </union>
+    <negative id="void-regions">
+        <union>
+            <rectangle min="-166,-81" max="-157,-88"/>
+            <rectangle min="-34,-81" max="-43,-88"/>
+            <complement>
+                <rectangle min="-146,-52" max="-54,-117"/>
+                <rectangle min="-146,-81" max="-138,-88"/>
+                <rectangle min="-122,-78" max="-78,-88"/>
+                <rectangle min="-105,-102" max="-96,-117"/>
+                <rectangle min="-54,-88" max="-62,-81"/>
+            </complement>
+        </union>
+    </negative>
+    <union id="beacon-glass">
+        <block>-13,7,-112</block>
+        <block>-28,14,-58</block>
+        <block>-173,14,-58</block>
+        <block>-188,7,-112</block>
+    </union>
+</regions>
+<applicators>
+    <apply region="beacon-glass" block="never"/>
+    <apply region="spawns" block-break="only-iron" block-place="never" message="{region.error.modify.spawn.only-iron}"/>
+    <apply region="orange-woolroom" block="only-red" message="{region.error.modify.own-wool}"/>
+    <apply region="orange-woolroom" enter="only-red" message="{region.error.enter.own-wool}"/>
+    <apply region="purple-woolroom" block="only-blue" message="{region.error.modify.own-wool}"/>
+    <apply region="purple-woolroom" enter="only-blue" message="{region.error.enter.own-wool}"/>
+    <apply region="orange-gearroom" block="only-red" message="{region.error.modify}"/>
+    <apply region="orange-gearroom" enter="only-red" message="{region.error.enter}"/>
+    <apply region="purple-gearroom" block="only-blue" message="{region.error.modify}"/>
+    <apply region="purple-gearroom" enter="only-blue" message="{region.error.enter}"/>
+    <apply region="void-regions" block="deny-void" message="{region.error.modify.void}"/>
+</applicators>
+<wools>
+    <wool team="red-team" color="orange" source="orange-woolroom" destination="orange-monument"/>
+    <wool team="blue-team" color="purple" source="purple-woolroom" destination="purple-monument"/>
+</wools>
+<renewables>
+    <renewable region="spawns" renew-filter="only-iron" interval="30s" avoid-players="5"/>
+</renewables>
+<kill-rewards>
+    <reward>
+        <item material="golden apple"/>
+        <item amount="16" damage="5" material="wood"/>
+        <item amount="6" material="glass"/>
+        <item amount="12" material="arrow"/>
+    </reward>
+</kill-rewards>
+<items>
+    <remove>
+        <any>
+            <material>arrow</material>
+            <material>cooked fish</material>
+            <material>string</material>
+            <material>seeds</material>
+            <material>red rose</material>
+            <material>yellow flower</material>
+            <material>apple</material>
+        </any>
+    </remove>
+    <repair>
+        <any>
+            <material>iron sword</material>
+            <material>bow</material>
+            <material>iron pickaxe</material>
+            <material>iron axe</material>
+            <material>iron spade</material>
+        </any>
+    </repair>
+</items>
+<respawn delay="5s"/>
+<max-build-height>21</max-build-height>
+<timelock>on</timelock>
+</map>

@@ -1,0 +1,134 @@
+<?xml version="1.0"?>
+<map proto="2.0.0">
+<name>Highlands TE</name>
+<version>1.0.1</version>
+<game>dtm</game>
+<objective>{map.objective.destroy.monument.plural,100}</objective>
+<authors>
+    <author uuid="621b2aa8-4e5f-4ed8-bd36-0ae2f8952a06"/> <!-- thestrangeboy1 -->
+</authors>
+<contributors>
+    <contributor uuid="6bec5c3a-4934-4b19-9aa8-c7c569820f7d"/> <!-- xCLAFx -->
+    <contributor uuid="e37f18f1-117b-47db-8806-6d3a0854b518"/> <!-- chickolympics -->
+</contributors>
+<time-limit result="objectives">45m</time-limit>
+<teams>
+    <team id="red-team" color="red" max="8">Red</team>
+    <team id="blue-team" color="blue" max="8">Blue</team>
+</teams>
+<kits>
+    <kit id="spawn-kit">
+        <item slot="0" material="iron sword"/>
+        <item slot="1" material="bow">
+            <enchantments>
+                <enchantment>arrow infinite</enchantment>
+            </enchantments>
+        </item>
+        <item slot="2" material="diamond pickaxe"/>
+        <item slot="3" material="iron axe">
+            <enchantments>
+                <enchantment level="2">dig speed</enchantment>
+            </enchantments>
+        </item>
+        <item slot="4" amount="64" damage="5" material="wood"/>
+        <item slot="22" amount="64" damage="5" material="wood"/>
+        <item slot="31" amount="64" damage="5" material="wood"/>
+        <item slot="5" amount="64" material="glass"/>
+        <item slot="6" amount="32" material="ladder"/>
+        <item slot="7" material="golden apple"/>
+        <item slot="8" amount="64" material="golden carrot"/>
+        <item slot="28" material="arrow"/>
+    </kit>
+</kits>
+<spawns>
+    <spawn team="red-team" kit="spawn-kit">
+        <region yaw="0">
+            <point>-45.5,94,-167.5</point>
+        </region>
+    </spawn>
+    <spawn team="blue-team" kit="spawn-kit">
+        <region yaw="180">
+            <point>-45.5,94,97.5</point>
+        </region>
+    </spawn>
+    <default>
+        <region yaw="90">
+            <point>11,23.5,-35</point>
+        </region>
+    </default>
+</spawns>
+<filters>
+    <not id="deny-void">
+        <void/>
+    </not>
+    <team id="only-red">red-team</team>
+    <team id="only-blue">blue-team</team>
+</filters>
+<regions>
+    <negative id="void">
+        <rectangle name="map" min="-6,-112" max="-85,42"/>
+    </negative>
+    <union id="spawns">
+        <rectangle min="-58,62" max="-32,100"/>
+        <rectangle min="-33,-132" max="-58,-170"/>
+    </union>
+    <cuboid id="red-east" min="-12,28,-75" max="-15,21,-72"/>
+    <cuboid id="red-west" min="-76,28,-75" max="-79,21,-72"/>
+    <cuboid id="blue-east" min="-12,28,2" max="-15,21,5"/>
+    <cuboid id="blue-west" min="-76,28,2" max="-79,21,5"/>
+</regions>
+<applicators>
+    <apply region="spawns" block="never" message="{region.error.modify.spawn}"/>
+    <apply region="void" block="deny-void" message="{region.error.modify.outside-playable}"/>
+</applicators>
+<monuments materials="emerald block" completion="100%">
+    <monument owner="red-team" name="East Monument" region="red-east"/>
+    <monument owner="red-team" name="West Monument" region="red-west"/>
+    <monument owner="blue-team" name="East Monument" region="blue-east"/>
+    <monument owner="blue-team" name="West Monument" region="blue-west"/>
+</monuments>
+<items>
+    <repair>
+        <any>
+            <material>iron sword</material>
+            <material>bow</material>
+            <material>diamond pickaxe</material>
+            <material>iron axe</material>
+        </any>
+    </repair>
+    <remove>
+        <any>
+            <material>wood step:5</material>
+            <material>item frame</material>
+            <material>torch</material>
+            <material>wood:3</material>
+            <material>stained clay:14</material>
+            <material>stained clay:11</material>
+            <material>golden carrot</material>
+            <material>arrow</material>
+            <material>wood</material>
+            <material>ladder</material>
+            <material>glass</material>
+            <material>smooth brick</material>
+            <material>emerald block</material>
+        </any>
+    </remove>
+</items>
+<kill-rewards>
+    <reward>
+        <item material="golden apple"/>
+        <item amount="32" damage="5" material="wood"/>
+        <item amount="32" material="glass"/>
+    </reward>
+</kill-rewards>
+<tnt>
+    <dispenser-tnt-limit>0</dispenser-tnt-limit>
+    <dispenser-tnt-multiplier>0</dispenser-tnt-multiplier>
+</tnt>
+<disable-crafting>
+    <recipe>dispenser</recipe>
+</disable-crafting>
+<timelock>on</timelock>
+<respawn auto="true"/>
+<max-build-height>50</max-build-height>
+</map>

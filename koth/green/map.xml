@@ -1,0 +1,88 @@
+<?xml version="1.0"?>
+<map proto="2.0.0">
+<name>Green</name>
+<version>1.0.0</version>
+<game>koth</game>
+<objective>{map.objective.deathmatch.limit,750}</objective>
+<authors>
+    <author uuid="2958ea4c-3501-404e-88cc-12e8632f68cc"/> <!-- NixaniaXi -->
+</authors>
+<teams>
+    <team id="blue-team" color="blue" max="7">Blue</team>
+    <team id="red-team"  color="red"  max="7">Red</team>
+</teams>
+<kits>
+    <kit id="main-kit">
+        <item slot="0" material="stone sword" unsharable="true"/>
+        <item slot="1" material="bow" unsharable="true"/>
+        <item slot="2" material="golden apple" death-drop="false"/>
+        <item slot="8" material="arrow" amount="24" death-drop="false"/>
+        <helmet        material="leather helmet"     team-color="true" locked="true"/>
+        <chestplate    material="leather chestplate" team-color="true" locked="true"/>
+        <leggings      material="iron leggings"      locked="true">
+            <enchantments>
+                <enchantment>protection projectile</enchantment>
+            </enchantments>
+        </leggings>
+        <boots         material="leather boots"      team-color="true" locked="true"/>
+        <effect duration="3" amplifier="10">damage resistance</effect>
+    </kit>
+</kits>
+<hunger>off</hunger>
+<timelock>on</timelock>
+<spawns>
+    <spawn team="blue-team" kit="main-kit">
+        <region yaw="-45">
+            <point>-37,6,-37</point>
+        </region>
+    </spawn>
+    <spawn team="red-team" kit="main-kit">
+        <region yaw="135">
+            <point>38,6,38</point>
+        </region>
+    </spawn>
+    <default>
+        <region yaw="-135">
+            <point>-33.5,23,34.5</point>
+        </region>
+    </default>
+</spawns>
+<filters>
+    <team id="only-blue">blue-team</team>
+    <team id="only-red">red-team</team>
+</filters>
+<regions>
+    <cylinder id="a-capture"       base="-26.5,8,27.5" radius="6" height="2"/>
+    <cylinder id="a-progress"      base="-26.5,7,27.5" radius="6" height="1"/>
+    <cuboid   id="a-control"       min="-25,46,29"     max="-28,51,26"/>
+    <cylinder id="middle-capture"  base="0.5,15,0.5"   radius="6" height="2"/>
+    <cylinder id="middle-progress" base="0.5,14,0.5"   radius="6" height="1"/>
+    <cuboid   id="middle-control"  min="2,46,2"        max="-1,51,-1"/>
+    <cylinder id="b-capture"       base="27.5,9,-26.5" radius="6" height="2"/>
+    <cylinder id="b-progress"      base="27.5,8,-26.5" radius="6" height="1"/>
+    <cuboid   id="b-control"       min="29,46,-25"     max="26,51,-28"/>
+</regions>
+<applicators>
+    <apply block="never"/>
+</applicators>
+<score limit="750"/>
+<hills capture-time="6s" points="1">
+    <hill name="Point A" capture-region="a-capture"      progress-region="a-progress"      control-region="a-control"/>
+    <hill name="Middle"  capture-region="middle-capture" progress-region="middle-progress" control-region="middle-control"/>
+    <hill name="Point B" capture-region="b-capture"      progress-region="b-progress"      control-region="b-control"/>
+</hills>
+<kill-rewards>
+    <reward>
+        <item material="arrow" amount="12" death-drop="false"/>
+        <item material="golden apple" death-drop="false"/>
+    </reward>
+</kill-rewards>
+<items>
+    <death-drop>
+        <any>
+            <material>golden apple</material>
+            <material>arrow</material>
+        </any>
+    </death-drop>
+</items>
+</map>

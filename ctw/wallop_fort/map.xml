@@ -1,0 +1,128 @@
+<?xml version="1.0"?>
+<map proto="2.0.0">
+<name>Wallop Fort</name>
+<version>1.0.0</version>
+<game>ctw</game>
+<objective>{map.objective.capture.singular}</objective>
+<authors>
+    <author uuid="6bec5c3a-4934-4b19-9aa8-c7c569820f7d"/> <!-- Claf -->
+    <author uuid="621b2aa8-4e5f-4ed8-bd36-0ae2f8952a06"/> <!-- Strangey -->
+</authors>
+<time-limit result="objectives">20m</time-limit>
+<teams>
+    <team id="red-team" color="red" max="5">Red</team>
+    <team id="blue-team" color="blue" max="5">Blue</team>
+</teams>
+<kits>
+    <kit id="spawn-kit">
+        <item slot="0" material="stone sword"/>
+        <item slot="1" material="bow"/>
+        <item slot="2" material="iron pickaxe">
+            <enchantments>
+                <enchantment>dig speed</enchantment>
+            </enchantments>
+        </item>
+        <item slot="3" material="iron axe"/>
+        <item slot="4" amount="64" material="bread"/>
+        <item slot="5" amount="64" damage="2" material="wood"/>
+        <item slot="6" amount="32" damage="1" material="leaves 2"/>
+        <item slot="7" material="stone spade"/>
+        <item slot="8" material="golden apple"/>
+        <item slot="28" amount="64" material="arrow"/>
+    </kit>
+</kits>
+<spawns>
+    <spawn team="red-team" kit="spawn-kit">
+        <region yaw="-45">
+            <point>-47.5,6,-47.5</point>
+        </region>
+    </spawn>
+    <spawn team="blue-team" kit="spawn-kit">
+        <region yaw="135">
+            <point>48.5,6,48.5</point>
+        </region>
+    </spawn>
+    <default>
+        <region yaw="0">
+            <point>0.5,18,0.5</point>
+        </region>
+    </default>
+</spawns>
+<filters>
+    <team id="only-red">red-team</team>
+    <team id="only-blue">blue-team</team>
+</filters>
+<regions>
+    <block id="orange-monument">-43,7,-43</block>
+    <block id="purple-monument">43,7,43</block>
+    <cuboid id="orange-woolroom" min="41,13,41" max="51,25,51"/>
+    <cuboid id="purple-woolroom" min="-40,13,-40" max="-50,25,-50"/>
+    <union id="spawns">
+        <cuboid id="red-spawn" min="-40,0,-40" max="-50,12,-50"/>
+        <cuboid id="blue-spawn" min="41,0,41" max="51,12,51"/>
+    </union>
+    <negative id="void">
+        <complement>
+            <rectangle min="-50,-50" max="51,51"/>
+            <union>
+                <rectangle min="-50,-16" max="-43,6"/>
+                <rectangle min="-43,6" max="-33,34"/>
+                <rectangle min="-16,-50" max="6,-43"/>
+                <rectangle min="6,-43" max="34,-33"/>
+                <rectangle min="51,17" max="44,-5"/>
+                <rectangle min="44,-5" max="34,-33"/>
+                <rectangle min="17,51" max="-5,44"/>
+                <rectangle min="-5,44" max="-33,34"/>
+            </union>
+        </complement>
+    </negative>
+</regions>
+<applicators>
+    <apply region="orange-woolroom" block="only-red" message="{region.error.modify.own-wool}"/>
+    <apply region="orange-woolroom" enter="only-red" message="{region.error.enter.own-wool}"/>
+    <apply region="purple-woolroom" block="only-blue" message="{region.error.modify.own-wool}"/>
+    <apply region="purple-woolroom" enter="only-blue" message="{region.error.enter.own-wool}"/>
+    <apply region="spawns" block="never" message="{region.error.modify.spawn}"/>
+    <apply region="red-spawn" enter="only-red" message="{region.error.enter.enemy-spawn}"/>
+    <apply region="blue-spawn" enter="only-blue" message="{region.error.enter.enemy-spawn}"/>
+    <apply region="void" block="never" message="{region.error.modify.outside-playable}"/>
+</applicators>
+<wools>
+    <wool team="red-team" color="orange" source="orange-woolroom" destination="orange-monument"/>
+    <wool team="blue-team" color="purple" source="purple-woolroom" destination="purple-monument"/>
+</wools>
+<kill-rewards>
+    <reward>
+        <item material="golden apple"/>
+        <item amount="16" damage="2" material="wood"/>
+        <item amount="8" damage="1" material="leaves 2"/>
+        <item amount="12" material="arrow"/>
+    </reward>
+</kill-rewards>
+<items>
+    <repair>
+        <any>
+            <material>stone sword</material>
+            <material>bow</material>
+            <material>iron pickaxe</material>
+            <material>iron axe</material>
+        </any>
+    </repair>
+    <remove>
+        <any>
+            <material>string</material>
+            <material>bread</material>
+            <material>stone spade</material>
+            <material>wood</material>
+            <material>leaves 2</material>
+            <material>arrow</material>
+            <material>sand</material>
+            <material>apple</material>
+            <material>obsidian</material>
+        </any>
+    </remove>
+</items>
+<max-build-height>22</max-build-height>
+<respawn delay="5s"/>
+<timelock>on</timelock>
+</map>

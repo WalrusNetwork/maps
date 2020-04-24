@@ -1,0 +1,227 @@
+<map proto="2.0.0">
+<name>Siege</name>
+<version>1.0.1</version>
+<game>dom</game>
+<objective>{map.objective.hill.domination.sequential}</objective>
+<authors>
+    <author uuid="2958ea4c-3501-404e-88cc-12e8632f68cc"/> <!--  NixaniaXi  -->
+</authors>
+<teams>
+    <team id="red"  color="red"  max="0">Red</team>
+    <team id="blue" color="blue" max="0">Blue</team>
+</teams>
+<kits>
+    <kit id="spawn">
+        <item slot="0" material="stone sword" unsharable="true"/>
+        <item slot="1" material="bow"         unsharable="true"/>
+        <item slot="2" material="golden apple" death-drop="false"/>
+        <item slot="8" material="arrow" amount="24" death-drop="false"/>
+        <helmet     material="leather helmet"     team-color="true" locked="true"/>
+        <chestplate material="leather chestplate" team-color="true" locked="true"/>
+        <leggings   material="iron leggings"                        locked="true">
+            <enchantments>
+                <enchantment>protection projectile</enchantment>
+            </enchantments>
+        </leggings>
+        <boots      material="leather boots"      team-color="true" locked="true"/>
+    </kit>
+</kits>
+<hunger>off</hunger>
+<timelock>on</timelock>
+<respawn delay="6s" auto="true"/>
+<spawns>
+     <spawn team="red" filter="spawn1" kit="spawn">
+        <regions yaw="180">
+            <block>122.5,15,55.5</block>
+        </regions>
+    </spawn>
+    <spawn team="red" filter="spawn2" kit="spawn">
+        <regions yaw="180">
+            <block>122.5,65,55.5</block>
+        </regions>
+    </spawn>
+    <spawn team="red" filter="spawn3" kit="spawn">
+        <regions yaw="180">
+            <block>122.5,115,55.5</block>
+        </regions>
+    </spawn>
+    <spawn team="red" filter="spawn4" kit="spawn">
+        <regions yaw="180">
+            <block>122.5,165,55.5</block>
+        </regions>
+    </spawn>
+    <spawn team="red" filter="spawn5" kit="spawn">
+        <regions yaw="180">
+            <block>122.5,215,55.5</block>
+        </regions>
+    </spawn>
+    <spawn team="red" filter="spawn6" kit="spawn">
+        <regions yaw="180">
+            <block>122.5,255,55.5</block>
+        </regions>
+    </spawn>
+    <spawn team="blue" filter="spawn1" kit="spawn">
+        <regions yaw="0">
+            <block>122.5,15,-142.5</block>
+        </regions>
+    </spawn>
+    <spawn team="blue" filter="spawn2" kit="spawn">
+        <regions yaw="0">
+            <block>122.5,65,-142.5</block>
+        </regions>
+    </spawn>
+    <spawn team="blue" filter="spawn3" kit="spawn">
+        <regions yaw="0">
+            <block>122.5,115,-142.5</block>
+        </regions>
+    </spawn>
+    <spawn team="blue" filter="spawn4" kit="spawn">
+        <regions yaw="0">
+            <block>122.5,165,-142.5</block>
+        </regions>
+    </spawn>
+    <spawn team="blue" filter="spawn5" kit="spawn">
+        <regions yaw="0">
+            <block>122.5,215,-142.5</block>
+        </regions>
+    </spawn>
+    <spawn team="blue" filter="spawn6" kit="spawn">
+        <regions yaw="0">
+            <block>122.5,255,-142.5</block>
+        </regions>
+    </spawn>
+    <default>
+        <regions look="122.5,0,-43.5">
+            <point>122.5,70,-43.5</point>
+        </regions>
+    </default>
+</spawns>
+<filters>
+    <team id="only-blue">blue</team>
+    <team id="only-red">red</team>
+    <!-- Point Filters -->
+    <!-- Blue Portal Filters -->
+    <all id="blueBluePortal">
+        <objective>blue-2nd</objective>
+        <not>
+            <any>
+                <objective>mid</objective>
+                <objective>red-2nd</objective>
+            </any>
+        </not>
+    </all>
+    <all id="blueMidPortal">
+        <objective>blue-2nd</objective>
+        <objective>mid</objective>
+        <not>
+            <objective>red-2nd</objective>
+        </not>
+    </all>
+    <all id="blueRedPortal">
+        <objective>blue-2nd</objective>
+        <objective>mid</objective>
+        <objective>red-2nd</objective>
+    </all>
+    <!-- Red Portal Filters -->
+    <all id="redRedPortal">
+        <objective>red-2nd</objective>
+        <not>
+            <any>
+                <objective>mid</objective>
+                <objective>blue-2nd</objective>
+            </any>
+        </not>
+    </all>
+    <all id="redMidPortal">
+        <objective>red-2nd</objective>
+        <objective>mid</objective>
+        <not>
+            <objective>blue-2nd</objective>
+        </not>
+    </all>
+    <all id="redBluePortal">
+        <objective>red-2nd</objective>
+        <objective>mid</objective>
+        <objective>blue-2nd</objective>
+    </all>
+    <!-- Time Filters -->
+    <not id="spawn1">
+        <time>2m</time>
+    </not>
+    <all id="spawn2">
+        <time>2m</time>
+        <not>
+            <time>4m</time>
+        </not>
+    </all>
+    <all id="spawn3">
+        <time>4m</time>
+        <not>
+            <time>6m</time>
+        </not>
+    </all>
+    <all id="spawn4">
+        <time>6m</time>
+        <not>
+            <time>8m</time>
+        </not>
+    </all>
+    <all id="spawn5">
+        <time>8m</time>
+        <not>
+            <time>10m</time>
+        </not>
+    </all>
+    <all id="spawn6">
+        <time>10m</time>
+    </all>
+</filters>
+<regions>
+    <cuboid id="red-last-region"  min="127,0,36"   max="118,50,45"/>
+    <cuboid id="red-2nd-region"   min="127,0,-3"   max="118,50,7"/>
+    <cuboid id="mid-region"       min="127,0,-48"  max="118,50,-39"/>
+    <cuboid id="blue-2nd-region"  min="127,0,-94"  max="118,50,-84"/>
+    <cuboid id="blue-last-region" min="127,0,-132" max="118,50,-123"/>
+    <cuboid id="red-portal"       min="120,6,58"   max="125,9,53"/>
+    <cuboid id="blue-portal"      min="120,6,-140" max="125,9,-145"/>
+    <point  id="red-to-red-2nd">142,7,17</point>
+    <point  id="red-to-mid">137,7,-10</point>
+    <point  id="red-to-blue-2nd">135.5,2,-60.5</point>
+    <point  id="blue-to-blue-2nd">103,7,-104</point>
+    <point  id="blue-to-mid">108,7,-77</point>
+    <point  id="blue-to-red-2nd">109.5,2,-26.5</point>
+</regions>
+<applicators>
+    <apply block="never"/>
+</applicators>
+<time-limit>12m</time-limit>
+<hills overtime="true" capture-time="10s">
+    <hill id="red-last"  name="Red Last"  initial-owner="red"  capture-region="red-last-region"  progress-region="red-last-region"  capture-filter="only-blue"/>
+    <hill id="red-2nd"   name="Red 2nd"   initial-owner="red"  capture-region="red-2nd-region"   progress-region="red-2nd-region"/>
+    <hill id="mid"       name="Mid"                            capture-region="mid-region"       progress-region="mid-region"/>
+    <hill id="blue-2nd"  name="Blue 2nd"  initial-owner="blue" capture-region="blue-2nd-region"  progress-region="blue-2nd-region"/>
+    <hill id="blue-last" name="Blue Last" initial-owner="blue" capture-region="blue-last-region" progress-region="blue-last-region" capture-filter="only-red" />
+</hills>
+<portals>
+    <portal region="red-portal"  destination="red-to-red-2nd"   yaw="180" filter="redRedPortal"/>
+    <portal region="red-portal"  destination="red-to-mid"       yaw="90"  filter="redMidPortal"/>
+    <portal region="red-portal"  destination="red-to-blue-2nd"  yaw="90"  filter="redBluePortal"/>
+    <portal region="blue-portal" destination="blue-to-blue-2nd" yaw="0"   filter="blueBluePortal"/>
+    <portal region="blue-portal" destination="blue-to-mid"      yaw="-90" filter="blueMidPortal"/>
+    <portal region="blue-portal" destination="blue-to-red-2nd"  yaw="-90" filter="blueRedPortal"/>
+</portals>
+<kill-rewards>
+    <reward>
+        <item material="golden apple" death-drop="false"/>
+        <item material="arrow" amount="12" death-drop="false"/>
+    </reward>
+</kill-rewards>
+<items>
+    <death-drop>
+        <any>
+            <material>golden apple</material>
+            <material>arrow</material>
+        </any>
+    </death-drop>
+</items>
+</map>

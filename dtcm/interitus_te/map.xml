@@ -1,0 +1,145 @@
+<?xml version="1.0"?>
+<map proto="2.0.0">
+<name>Interitus TE</name>
+<version>2.0.0</version>
+<game>dtm</game>
+<objective>{map.objective.destroy.monument.plural,100}</objective>
+<authors>
+    <author uuid="ef4ea031-998f-4ec9-b7b6-1bdd428bcef8"/> <!-- Plastix -->
+    <author uuid="1379cb6e-f291-4498-9807-e636f9674ac0"/> <!-- SH4D0W_HAWK -->
+    <author uuid="82c796a5-c033-43be-af30-fa06496995f9"/> <!-- IM_A_H0B0 -->
+</authors>
+<contributors>
+    <contributor uuid="2553e6f2-3a2c-440b-a6a3-39e3df7fe3ff" contribution="Help and Feedback"/> <!-- Khazhyk -->
+</contributors>
+<time-limit result="objectives">45m</time-limit>
+<teams>
+    <team id="blue-team" color="blue" max="8">Blue</team>
+    <team id="red-team" color="red" max="8">Red</team>
+</teams>
+<spawns>
+    <spawn team="red-team" yaw="180" kit="spawn">
+        <region>
+            <point>0.5,8,99.5</point>
+        </region>
+    </spawn>
+    <spawn team="blue-team" yaw="0" kit="spawn">
+        <region>
+            <point>0.5,8,-98.5</point>
+        </region>
+    </spawn>
+    <default yaw="-90">
+        <region>
+            <cylinder base="-84,33,0" radius="2" height="0"/>
+        </region>
+    </default>
+</spawns>
+<kits>
+    <kit id="spawn">
+        <item slot="0" material="iron sword"/>
+        <item slot="1" material="bow">
+            <enchantments>
+                <enchantment>arrow infinite</enchantment>
+            </enchantments>
+        </item>
+        <item slot="2" material="diamond pickaxe"/>
+        <item slot="3" material="iron axe">
+            <enchantments>
+                <enchantment level="2">dig speed</enchantment>
+            </enchantments>
+        </item>
+        <item slot="4" amount="64" damage="1" material="wood"/>
+        <item slot="22" amount="64" damage="1" material="wood"/>
+        <item slot="31" amount="64" damage="1" material="wood"/>
+        <item slot="5" amount="64" material="glass"/>
+        <item slot="6" amount="32" material="ladder"/>
+        <item slot="7" material="golden apple"/>
+        <item slot="8" amount="64" material="golden carrot"/>
+        <item slot="28" material="arrow"/>
+    </kit>
+</kits>
+<filters>
+    <not id="deny-blue">
+        <team>blue-team</team>
+    </not>
+    <not id="deny-red">
+        <team>red-team</team>
+    </not>
+</filters>
+<regions>
+    <negative id="playable-inverse">
+        <rectangle id="playable" min="50,53" max="-49,-52"/>
+    </negative>
+    <!-- e = enter | b = block | r = re-entry -->
+    <union id="tunnels">
+        <cuboid id="red-tunnel-e" min="4,0,102" max="-3,11,49"/>
+        <cuboid id="blue-tunnel-e" min="-3,0,-101" max="4,11,-48"/>
+        <union id="tunnels-b">
+            <rectangle id="red-tunnel-b" min="4,102" max="-3,49"/>
+            <rectangle id="blue-tunnel-b" min="-3,-101" max="4,-48"/>
+        </union>
+        <union id="tunnels-r">
+            <rectangle id="red-tunnel-r" min="4,102" max="-3,59"/>
+            <rectangle id="blue-tunnel-r" min="-3,-101" max="4,-58"/>
+        </union>
+    </union>
+    <cuboid id="red-east-monument" min="24,15,36" max="27,23,39"/>
+    <cuboid id="blue-east-monument" min="27,15,-35" max="24,23,-38"/>
+    <cuboid id="red-west-monument" min="-26,15,36" max="-23,23,39"/>
+    <cuboid id="blue-west-monument" min="-23,15,-35" max="-26,23,-38"/>
+</regions>
+<applicators>
+    <apply region="tunnels-b" block="never" message="{region.error.modify.spawn-tunnel}"/>
+    <apply region="tunnels-r" enter="never" message="{region.error.enter.re-enter-spawn}"/>
+    <apply region="red-tunnel-e" enter="deny-blue" message="{region.error.enter.enemy-spawn-tunnel}"/>
+    <apply region="blue-tunnel-e" enter="deny-red" message="{region.error.enter.enemy-spawn-tunnel}"/>
+    <apply region="playable-inverse" block="never" message="{region.error.modify.outside-playable}"/>
+</applicators>
+<monuments materials="ender stone" completion="100%">
+    <monument owner="red-team" name="East Monument" region="red-east-monument"/>
+    <monument owner="red-team" name="West Monument" region="red-west-monument"/>
+    <monument owner="blue-team" name="East Monument" region="blue-east-monument"/>
+    <monument owner="blue-team" name="West Monument" region="blue-west-monument"/>
+</monuments>
+<items>
+    <repair>
+        <any>
+            <material>iron sword</material>
+            <material>bow</material>
+            <material>diamond pickaxe</material>
+            <material>iron axe</material>
+        </any>
+    </repair>
+    <remove>
+        <any>
+            <material>log</material>
+            <material>wood</material>
+            <material>glass</material>
+            <material>ladder</material>
+            <material>arrow</material>
+            <material>golden carrot</material>
+            <material>clay ball</material>
+            <material>beacon</material>
+            <material>obsidian</material>
+            <material>ender stone</material>
+        </any>
+    </remove>
+</items>
+<kill-rewards>
+    <reward>
+        <item material="golden apple"/>
+        <item amount="32" damage="1" material="wood"/>
+        <item amount="32" material="glass"/>
+    </reward>
+</kill-rewards>
+<tnt>
+    <dispenser-tnt-limit>0</dispenser-tnt-limit>
+    <dispenser-tnt-multiplier>0</dispenser-tnt-multiplier>
+</tnt>
+<disable-crafting>
+    <recipe>dispenser</recipe>
+</disable-crafting>
+<timelock>on</timelock>
+<respawn auto="true" delay="4s"/>
+<max-build-height>40</max-build-height>
+</map>

@@ -1,0 +1,190 @@
+<?xml version="1.0"?>
+<map proto="2.0.0">
+<name>Wallop Too</name>
+<version>1.0.0</version>
+<objective>{map.objective.capture.plural}</objective>
+<game>ctw</game>
+<authors>
+    <author uuid="6bec5c3a-4934-4b19-9aa8-c7c569820f7d"/> <!-- Claf -->
+    <author uuid="9929437a-9b7d-4d7a-b05d-e22fe93ac042"/> <!-- triplezko -->
+</authors>
+<contributors>
+    <contributor uuid="0b886f80-3d3c-4b1b-8f79-fa7bfd58119f" contribution="Helped"/> <!-- chespie -->
+</contributors>
+<time-limit result="objectives">45m</time-limit>
+<teams>
+    <team id="red-team" color="red" max="8" max-overfill="8">Red</team>
+    <team id="blue-team" color="blue" max="8" max-overfill="8">Blue</team>
+</teams>
+<kits>
+    <kit id="spawn-kit">
+        <item slot="0" material="iron sword"/>
+        <item slot="1" material="bow"/>
+        <item slot="2" material="diamond pickaxe"/>
+        <item slot="3" material="diamond axe"/>
+        <item slot="4" amount="24" material="cooked mutton"/>
+        <item slot="5" amount="32" damage="1" material="log 2"/>
+        <item slot="6" amount="64" damage="2" material="glass"/>
+        <item slot="7" amount="64" material="arrow"/>
+        <item slot="8" amount="64" material="arrow"/>
+    </kit>
+</kits>
+<spawns>
+    <spawn team="red-team" kit="spawn-kit">
+        <region yaw="-90">
+            <point>-103.5,12,-34.5</point>
+        </region>
+    </spawn>
+    <spawn team="blue-team" kit="spawn-kit">
+        <region yaw="90">
+            <point>-89.5,12,-210.5</point>
+        </region>
+    </spawn>
+    <default>
+        <region yaw="90">
+            <point>-52.5,50,-122.5</point>
+        </region>
+    </default>
+</spawns>
+<filters>
+    <team id="only-red">red-team</team>
+    <team id="only-blue">blue-team</team>
+    <not id="deny-void">
+        <void/>
+    </not>
+    <material id="only-iron">iron block</material>
+    <any id="only-explosions">
+        <explosion/>
+        <not>
+            <actor>player</actor>
+        </not>
+    </any>
+</filters>
+<regions>
+    <block id="lightblue-monument">-96,15,-3</block>
+    <block id="yellow-monument">-98,15,-3</block>
+    <block id="lime-monument">-98,15,-243</block>
+    <block id="magenta-monument">-96,15,-243</block>
+    <union id="lane-bridges">
+        <cuboid min="-92,15,-59" max="-101,16,-60"/>
+        <cuboid min="-101,15,-186" max="-92,16,-185"/>
+    </union>
+    <union id="red-woolrooms">
+        <cuboid id="lightblue-woolroom" min="-145,0,-219" max="-136,29,-210"/>
+        <cuboid id="yellow-woolroom" min="-48,0,-219" max="-57,29,-210"/>
+    </union>
+    <union id="blue-woolrooms">
+        <cuboid id="lime-woolroom" min="-48,0,-26" max="-57,29,-35"/>
+        <cuboid id="magenta-woolroom" min="-145,0,-26" max="-136,29,-35"/>
+    </union>
+    <union id="beacons-and-monuments">
+        <cuboid min="-95,17,-1" max="-98,14,-4"/> <!-- wool monuments -->
+        <cuboid min="-98,17,-244" max="-95,14,-241"/>
+        <block>-53,15,-31</block> <!-- glass above beacons -->
+        <block>-141,15,-31</block>
+        <block>-141,15,-215</block>
+        <block>-53,15,-215</block>
+    </union>
+    <union id="spawn-towers">
+        <cylinder base="-97,0,-35" radius="14" height="100"/>
+        <rectangle min="-101,-13" max="-93,-29"/>
+        <cylinder base="-97,0,-211" radius="14" height="100"/>
+        <rectangle min="-92,-232" max="-101,-215"/>
+    </union>
+    <union id="iron-supplies">
+        <cuboid min="-111,31,-17" max="-82,43,12"/>
+        <cuboid min="-82,31,-228" max="-111,43,-257"/>
+    </union>
+    <cuboid id="height-limit-mid" min="-57,22,-83" max="-136,50,-162"/>
+    <above id="height-limit" y="29"/>
+    <negative id="void-regions">
+        <union>
+            <block>-95,7,-67</block>
+            <block>-99,7,-67</block>
+            <block>-99,7,-179</block>
+            <block>-95,7,-179</block>
+            <rectangle min="-57,-68" max="-92,-177"/> <!-- mid -->
+            <rectangle min="-101,-68" max="-136,-177"/>
+            <rectangle min="-64,-17" max="-77,-26"/> <!-- team sides water gap -->
+            <rectangle min="-116,-17" max="-129,-26"/>
+            <rectangle min="-129,-228" max="-116,-219"/>
+            <rectangle min="-77,-228" max="-64,-219"/>
+        </union>
+    </negative>
+    <cuboid id="red-portal" min="-92,20,-36" max="-93,18,-33"/>
+    <point id="red-portal-destination">-96.5,32,-30.5</point>
+    <cuboid id="blue-portal" min="-101,20,-209" max="-100,18,-212"/>
+    <point id="blue-portal-destination">-96.5,32,-214.5</point>
+    <point id="spawner-spawn-region">-96.5,12.3,-122.5</point>
+    <cuboid id="spawner-detect-region" min="-86,0,-112" max="-107,20,-133"/> <!-- mid island -->
+</regions>
+<applicators>
+    <apply region="lane-bridges" block="only-explosions" message="Only TNT can break this bridge!"/>
+    <apply region="beacons-and-monuments" block="never"/>
+    <apply region="red-woolrooms" block="only-red" message="Y{region.error.modify.own-wool}"/>
+    <apply region="red-woolrooms" enter="only-red" message="{region.error.enter.own-wool}"/>
+    <apply region="blue-woolrooms" block="only-blue" message="{region.error.modify.own-wool}"/>
+    <apply region="blue-woolrooms" enter="only-blue" message="{region.error.enter.own-wool}"/>
+    <apply region="spawn-towers" block="never" message="{region.error.modify.spawn}"/>
+    <apply region="iron-supplies" block-break="only-iron" block-place="never" message="{region.error.modify.spawn.only-iron}"/>
+    <apply region="height-limit-mid" block="never" message="{region.error.place.height-limit.area}"/>
+    <apply region="height-limit" block="never" message="{region.error.place.height-limit}"/>
+    <apply region="void-regions" block="deny-void" message="{region.error.modify.void}"/>
+</applicators>
+<wools>
+    <wool team="red-team" color="light blue" source="lightblue-woolroom" destination="lightblue-monument"/>
+    <wool team="red-team" color="yellow" source="yellow-woolroom" destination="yellow-monument"/>
+    <wool team="blue-team" color="lime" source="lime-woolroom" destination="lime-monument"/>
+    <wool team="blue-team" color="magenta" source="magenta-woolroom" destination="magenta-monument"/>
+</wools>
+<portals>
+    <portal region="red-portal" destination="red-portal-destination" yaw="0"/>
+    <portal region="blue-portal" destination="blue-portal-destination" yaw="180"/>
+</portals>
+<spawners>
+    <spawner spawn-region="spawner-spawn-region" detect-region="spawner-detect-region" delay="15">
+        <all>
+            <item material="tnt"/>
+        </all>
+    </spawner>
+</spawners>
+<kill-rewards>
+    <reward>
+        <item material="golden apple"/>
+        <item amount="32" damage="5" material="wood"/>
+        <item amount="16" material="glass"/>
+        <item amount="24" material="arrow"/>
+    </reward>
+</kill-rewards>
+<items>
+    <remove>
+        <any>
+            <material>redstone</material>
+            <material>redstone torch off</material>
+            <material>redstone torch on</material>
+            <material>diode</material>
+            <material>red rose</material>
+            <material>seeds</material>
+            <material>sapling</material>
+            <material>apple</material>
+            <material>cooked mutton</material>
+            <material>arrow</material>
+            <material>log</material>
+            <material>log 2</material>
+            <material>glass</material>
+        </any>
+    </remove>
+    <repair>
+        <any>
+            <material>iron sword</material>
+            <material>bow</material>
+            <material>diamond pickaxe</material>
+            <material>diamond axe</material>
+        </any>
+    </repair>
+</items>
+<timelock>on</timelock>
+<disable-crafting>
+    <recipe>anvil</recipe>
+</disable-crafting>
+</map>

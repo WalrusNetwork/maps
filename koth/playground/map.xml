@@ -1,0 +1,88 @@
+<?xml version="1.0"?>
+<map proto="2.0.0">
+<name>Playground</name>
+<version>1.0.0</version>
+<game>koth</game>
+<objective>{map.objective.deathmatch.limit,750}</objective>
+<authors>
+    <author uuid="9116d3fa-1400-4ada-aecd-2eae1d73e383"/> <!-- XUPH -->
+    <author uuid="0b8f95fa-0f40-4f28-9fd0-b8e243bb6800"/> <!-- Fouled -->
+</authors>
+<teams>
+    <team id="blue-team" color="blue" max="7">Blue</team>
+    <team id="red-team"  color="red"  max="7">Red</team>
+</teams>
+<kits>
+    <kit id="main-kit">
+        <item slot="0" material="stone sword" unsharable="true"/>
+        <item slot="1" material="bow" unsharable="true"/>
+        <item slot="2" material="golden apple" death-drop="false"/>
+        <item slot="8" material="arrow" amount="24" death-drop="false"/>
+        <helmet        material="leather helmet"     team-color="true" locked="true"/>
+        <chestplate    material="leather chestplate" team-color="true" locked="true"/>
+        <leggings      material="iron leggings"      locked="true">
+            <enchantments>
+                <enchantment>protection projectile</enchantment>
+            </enchantments>
+        </leggings>
+        <boots         material="leather boots"      team-color="true" locked="true"/>
+        <effect duration="3" amplifier="10">damage resistance</effect>
+    </kit>
+</kits>
+<hunger>off</hunger>
+<spawns>
+    <spawn team="red-team" kit="main-kit">
+        <regions>
+            <point yaw="90">18.5,24,-53.5</point>
+        </regions>
+    </spawn>
+    <spawn team="blue-team" kit="main-kit">
+        <regions>
+            <point yaw="0">51.5,24,-20.5</point>
+        </regions>
+    </spawn>
+    <default>
+        <region yaw="45">
+            <cuboid min="51,51,-53" max="49,51,-51"/>
+        </region>
+    </default>
+</spawns>
+<filters>
+    <team id="only-blue">blue-team</team>
+    <team id="only-red">red-team</team>
+</filters>
+<regions>
+    <cylinder id="castle-capture"      base="27.5,30,-29.5" radius="4.5" height="4"/>
+    <cylinder id="castle-progress"     base="27.5,30,-29.5" radius="4.5" height="1"/>
+    <cuboid   id="castle-control"      min="21,39,-36"      max="34,58,-23"/>
+    <cylinder id="sandbox-capture"     base="8.5,23,-10.5"  radius="4.5" height="4"/>
+    <cylinder id="sandbox-progress"    base="8.5,23,-10.5"  radius="4.5" height="1"/>
+    <cuboid   id="sandbox-control"     min="2,27,-4"        max="15,22,-17"/>
+    <cylinder id="roundabout-capture"  base="-9.5,32,7.5"   radius="4.5" height="4"/>
+    <cylinder id="roundabout-progress" base="-9.5,31,7.5"   radius="4.5" height="1"/>
+    <cylinder id="roundabout-control"  base="-9.5,32,7.5"   radius="4.5" height="25"/>
+</regions>
+<applicators>
+    <apply block="never"/>
+</applicators>
+<score limit="750"/>
+<hills capture-time="6s" points="1">
+    <hill name="Castle"     capture-region="castle-capture"     progress-region="castle-progress"     control-region="castle-control"/>
+    <hill name="Sandbox"    capture-region="sandbox-capture"    progress-region="sandbox-progress"    control-region="sandbox-control"/>
+    <hill name="Roundabout" capture-region="roundabout-capture" progress-region="roundabout-progress" control-region="roundabout-control"/>
+</hills>
+<kill-rewards>
+    <reward>
+        <item material="arrow" amount="12" death-drop="false"/>
+        <item material="golden apple" death-drop="false"/>
+    </reward>
+</kill-rewards>
+<items>
+    <death-drop>
+        <any>
+            <material>golden apple</material>
+            <material>arrow</material>
+        </any>
+    </death-drop>
+</items>
+</map>

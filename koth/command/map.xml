@@ -1,0 +1,87 @@
+<?xml version="1.0"?>
+<map proto="2.0.0">
+<name>Command</name>
+<version>1.0.0</version>
+<game>koth</game>
+<objective>{map.objective.deathmatch.limit,750}</objective>
+<authors>
+    <author uuid="459fd919-0d58-401a-9601-6cab1eb721ab"/> <!-- Reshif -->
+</authors>
+<teams>
+    <team id="blue-team" color="blue" max="7">Blue</team>
+    <team id="red-team"  color="red"  max="7">Red</team>
+</teams>
+<kits>
+    <kit id="main-kit">
+        <item slot="0" material="stone sword" unsharable="true"/>
+        <item slot="1" material="bow" unsharable="true"/>
+        <item slot="2" material="golden apple" death-drop="false"/>
+        <item slot="8" material="arrow" amount="24" death-drop="false"/>
+        <helmet        material="leather helmet"     team-color="true" locked="true"/>
+        <chestplate    material="leather chestplate" team-color="true" locked="true"/>
+        <leggings      material="iron leggings"      locked="true">
+            <enchantments>
+                <enchantment>protection projectile</enchantment>
+            </enchantments>
+        </leggings>
+        <boots         material="leather boots"      team-color="true" locked="true"/>
+        <effect duration="3" amplifier="10">damage resistance</effect>
+    </kit>
+</kits>
+<hunger>off</hunger>
+<timelock>on</timelock>
+<spawns>
+    <spawn team="blue-team" kit="main-kit">
+        <region yaw="90">
+            <point>37.5,10,0.5</point>
+        </region>
+    </spawn>
+    <spawn team="red-team" kit="main-kit">
+        <region yaw="-90">
+            <point>-36.5,10,0.5</point>
+        </region>
+    </spawn>
+    <default>
+        <region yaw="180">
+            <point>0.5,27,27.5</point>
+        </region>
+    </default>
+</spawns>
+<filters>
+    <team id="only-blue">blue-team</team>
+    <team id="only-red">red-team</team>
+</filters>
+<regions>
+    <cylinder id="top"    base="0.5,9,24.5"  radius="4" height="5"/>
+    <cylinder id="middle" base="0.5,6,0.5"   radius="4" height="5"/>
+    <cylinder id="bottom" base="0.5,4,-17.5" radius="4" height="5"/>
+    <cuboid   id="top-control"    min="23,29,38"    max="-22,41,36"/>
+    <cuboid   id="middle-control" min="14,15,12"   max="-14,20,4"/>
+    <cuboid   id="bottom-control" min="-10,14,-34" max="11,40,-48"/>
+    <below    id="far-side" z="-30"/>
+</regions>
+<applicators>
+    <apply region="far-side" enter="never"/>
+    <apply block="never"/>
+</applicators>
+<score limit="750"/>
+<hills capture-time="6s" points="1">
+    <hill name="Top"    capture-region="top"    progress-region="top"    control-region="top-control"/>
+    <hill name="Middle" capture-region="middle" progress-region="middle" control-region="middle-control"/>
+    <hill name="Bottom" capture-region="bottom" progress-region="bottom" control-region="bottom-control"/>
+</hills>
+<kill-rewards>
+    <reward>
+        <item material="arrow" amount="12" death-drop="false"/>
+        <item material="golden apple" death-drop="false"/>
+    </reward>
+</kill-rewards>
+<items>
+    <death-drop>
+        <any>
+            <material>golden apple</material>
+            <material>arrow</material>
+        </any>
+    </death-drop>
+</items>
+</map>

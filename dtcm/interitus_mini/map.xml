@@ -1,0 +1,152 @@
+<?xml version="1.0"?>
+<map proto="2.0.0">
+<name>Interitus: Mini</name>
+<version>1.0.0</version>
+<game>dtm</game>
+<objective>{map.objective.destroy.monument.singular,100}</objective>
+<authors>
+    <author uuid="bf331953-4f92-43ee-8abc-7544b8234936" contribution="Mini version"/> <!-- ViceTechnicolour -->
+    <author uuid="ef4ea031-998f-4ec9-b7b6-1bdd428bcef8" contribution="Original map"/> <!-- Plastix -->
+    <author uuid="1379cb6e-f291-4498-9807-e636f9674ac0" contribution="Original map"/> <!-- SH4D0W_HAWK -->
+    <author uuid="82c796a5-c033-43be-af30-fa06496995f9" contribution="Original map"/> <!-- IM_A_H0B0 -->
+    <author uuid="dad8b95c-cf6a-44df-982e-8c8dd70201e0" contribution="Original map"/> <!-- ElectroidFilms -->
+</authors>
+<teams>
+    <team id="red" color="red" max="7">Red</team>
+    <team id="blue" color="blue" max="7">Blue</team>
+</teams>
+<kits>
+    <kit id="time-kit">
+        <time>16000</time>
+    </kit>
+    <kit id="spawn-kit" parent="time-kit">
+        <item slot="0" material="iron sword"/>
+        <item slot="1" material="bow">
+            <enchantments>
+                <enchantment>arrow infinite</enchantment>
+            </enchantments>
+        </item>
+        <item slot="2" material="iron pickaxe">
+            <enchantments>
+                <enchantment level="2">dig speed</enchantment>
+            </enchantments>
+        </item>
+        <item slot="3" material="iron axe">
+            <enchantments>
+                <enchantment>dig speed</enchantment>
+            </enchantments>
+        </item>
+        <defuser slot="4"/>
+        <item slot="5" material="wood" amount="64" damage="1"/>
+        <item slot="6" material="wood" amount="64" damage="1"/>
+        <item slot="8" material="golden carrot" amount="64"/>
+        <item slot="28" material="arrow"/>
+        <helmett eam-color="true" material="leather helmet"/>
+        <chestplate team-color="true" material="leather chestplate">
+            <enchantments>
+                <enchantment level="3">protection explosions</enchantment>
+            </enchantments>
+        </chestplate>
+        <effect duration="5">heal</effect>
+    </kit>
+</kits>
+<timelock>on</timelock>
+<spawns>
+    <spawn team="red" kit="spawn-kit">
+        <region yaw="0">
+            <point>0,10,-92</point>
+        </region>
+        <region yaw="-180">
+            <point>0,10,4</point>
+        </region>
+    </spawn>
+    <spawn team="blue" kit="spawn-kit">
+        <region yaw="-180">
+            <point>-44,10,4</point>
+        </region>
+        <region yaw="0">
+            <point>-44,10,-92</point>
+        </region>
+    </spawn>
+    <default yaw="0" kit="time-kit">
+        <region>
+            <cuboid min="-21,26,-108" max="-23,26,-110"/>
+        </region>
+    </default>
+</spawns>
+<filters>
+    <team id="only-blue">blue</team>
+    <team id="only-red">red</team>
+    <deny id="deny-beacon">
+        <material>beacon</material>
+    </deny>
+</filters>
+<regions>
+    <cuboid min="-42,20,-42" max="-46,12,-46" id="blue-monument"/>
+    <cuboid min="2,12,-42" max="-2,20,-46" id="red-monument"/>
+    <union id="spawns">
+        <cuboid name="red-spawn-one" min="-5,2,-11" max="6,19,9"/>
+        <cuboid name="red-spawn-two" min="6,19,-97" max="-5,2,-77"/>
+        <cuboid name="blue-spawn-one" min="-38,2,-11" max="-49,19,9"/>
+        <cuboid name="blue-spawn-two" min="-38,2,-77" max="-49,19,-97"/>
+    </union>
+    <union id="blue-spawn-enter">
+        <rectangle name="blue-spawn-enter-two" min="-49,-88" max="-39,-97"/>
+        <rectangle name="blue-spawn-enter-one" min="-39,9" max="-49,0"/>
+    </union>
+    <union id="red-spawn-enter">
+        <rectangle name="red-spawn-eenter-two" min="5,-88" max="-5,-97"/>
+        <rectangle name="red-spawn-enter-one" min="5,0" max="-5,9"/>
+    </union>
+    <negative id="not-playingfield">
+        <rectangle min="-49,9" max="6,-97"/>
+    </negative>
+</regions>
+<applicators>
+    <apply region="spawns" block="never" message="{region.error.modify.spawn}"/>
+    <apply region="blue-spawn-enter" enter="only-blue" message="{region.error.enter.enemy-spawn}"/>
+    <apply region="red-spawn-enter" enter="only-red" message="{region.error.enter.enemy-spawn}"/>
+    <apply region="not-playingfield" block="never" message="{region.error.modify.outside-playable}"/>
+    <apply region="everywhere" use="deny-beacon" message="{region.error.use.beacon}"/>
+</applicators>
+<max-build-height>26</max-build-height>
+<monuments materials="ender stone" name="Monument" sparks="true">
+    <monument owner="blue" region="blue-monument"/>
+    <monument owner="red" region="red-monument"/>
+</monuments>
+<kill-rewards>
+    <reward>
+        <item material="golden apple"/>
+        <item material="wood" damage="1" amount="16"/>
+    </reward>
+</kill-rewards>
+<items>
+    <remove>
+        <any>
+            <material>leaves</material>
+            <material>leather helmet</material>
+            <material>leather chestplate</material>
+            <material>ender stone</material>
+            <material>cobblestone</material>
+            <material>beacon</material>
+            <material>wool</material>
+            <material>smooth brick</material>
+            <material>wood</material>
+            <material>golden carrot</material>
+            <material>apple</material>
+            <material>cobblestone</material>
+            <material>clay ball</material>
+            <material>sapling</material>
+        </any>
+    </remove>
+    <repair>
+        <any>
+            <material>iron sword</material>
+            <material>bow</material>
+            <material>iron pickaxe</material>
+            <material>iron axe</material>
+            <material>shears</material>
+        </any>
+    </repair>
+</items>
+</map>

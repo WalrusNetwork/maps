@@ -1,0 +1,188 @@
+<?xml version="1.0"?>
+<map proto="2.0.0">
+<name>Coral Reef II</name>
+<version>1.0.0</version>
+<game>ctw</game>
+<objective>{map.objective.capture.plural}</objective>
+<authors>
+    <author uuid="38ab65dd-95f9-406f-917c-6accc995421f"/> <!-- GoldenOre -->
+</authors>
+<contributors>
+    <contributor uuid="621b2aa8-4e5f-4ed8-bd36-0ae2f8952a06" contribution="Feedback"/> <!-- Strangey -->
+</contributors>
+<time-limit result="objectives">45m</time-limit>
+<teams>
+    <team id="red" color="red" max="8" max-overfill="8">Red</team>
+    <team id="blue" color="blue" max="8" max-overfill="8">Blue</team>
+</teams>
+<kits>
+    <kit id="spawn">
+        <item slot="0" material="stone sword"/>
+        <item slot="1" material="bow">
+            <enchantments>
+                <enchantment>arrow infinite</enchantment>
+            </enchantments>
+        </item>
+        <item slot="2" material="iron pickaxe">
+            <enchantments>
+                <enchantment level="4">durability</enchantment>
+                <enchantment>dig speed</enchantment>
+            </enchantments>
+        </item>
+        <item slot="3" material="iron axe">
+            <enchantments>
+                <enchantment level="4">durability</enchantment>
+            </enchantments>
+        </item>
+        <item slot="5" amount="64" damage="2" material="wood"/>
+        <item slot="7" material="golden apple"/>
+        <item slot="8" amount="32" damage="1" material="cooked fish"/>
+        <item slot="28" material="arrow"/>
+        <effect duration="11" amplifier="5">damage resistance</effect>
+    </kit>
+</kits>
+<spawns>
+    <spawn team="blue" kit="spawn">
+        <region yaw="-90">
+            <point>-473.5,250,171</point>
+        </region>
+    </spawn>
+    <spawn team="red" kit="spawn">
+        <region yaw="90">
+            <point>-261.5,250,171</point>
+        </region>
+    </spawn>
+    <default>
+        <region yaw="0">
+            <point>-366.5,45,112.5</point>
+        </region>
+    </default>
+</spawns>
+<filters>
+    <team id="only-red">red</team>
+    <team id="only-blue">blue</team>
+    <not id="deny-void">
+        <void/>
+    </not>
+    <material id="only-gold">gold block</material>
+</filters>
+<regions>
+    <negative id="void">
+        <union id="bridgezones">
+            <cuboid id="bridgezone1" min="-326,30,130" max="-409,0,212"/>
+            <cuboid id="bridgezone2" min="-438,30,146" max="-452,0,196"/>
+            <cuboid id="bridgezone3" min="-297,30,146" max="-283,0,196"/>
+        </union>
+    </negative>
+    <union id="bases">
+        <cuboid id="blue-base" min="-485,30,183" max="-462,0,159"/>
+        <cuboid id="red-base" min="-250,30,159" max="-273,0,183"/>
+    </union>
+    <!-- Red must enter -->
+    <union id="red-wools">
+        <cuboid id="green-wool" min="-452,0,212" max="-438,30,198"/>
+        <cuboid id="lime-wool" min="-452,0,144" max="-438,30,130"/>
+    </union>
+    <!-- Blue must enter -->
+    <union id="blue-wools">
+        <cuboid id="purple-wool" min="-283,0,130" max="-297,30,144"/>
+        <cuboid id="magenta-wool" min="-283,0,198" max="-297,30,212"/>
+    </union>
+    <block id="purple-monument">-467,12,168</block>
+    <block id="magenta-monument">-467,12,173</block>
+    <block id="lime-monument">-269,12,168</block>
+    <block id="green-monument">-269,12,173</block>
+    <union id="beacon-glass">
+        <block>-285,18,131</block>
+        <block>-285,18,210</block>
+        <block>-451,18,210</block>
+        <block>-451,18,131</block>
+    </union>
+    <point id="spawn-region">-367.5,14.5,171.0</point>
+    <sphere id="detect-region" origin="-367.5,14.5,171.0" radius="5.5"/>
+</regions>
+<applicators>
+    <apply region="beacon-glass" block="never"/>
+    <apply region="bases" block="only-gold" message="{region.error.modify.spawn.only-gold}"/>
+    <apply region="red-base" enter="only-red" message="{region.error.enter.enemy-spawn}"/>
+    <apply region="blue-base" enter="only-blue" message="{region.error.enter.enemy-spawn}"/>
+    <apply region="red-wools" block="only-red" message="{region.error.modify.own-wool}"/>
+    <apply region="red-wools" enter="only-red" message="{region.error.enter.own-wool}"/>
+    <apply region="blue-wools" block="only-blue" message="{region.error.modify.own-wool}"/>
+    <apply region="blue-wools" enter="only-blue" message="{region.error.enter.own-wool}"/>
+    <apply region="void" block="deny-void" message="{region.error.modify.outside-playable}"/>
+</applicators>
+<wools>
+    <wool team="blue" color="purple" source="purple-wool" destination="purple-monument"/>
+    <wool team="blue" color="magenta" source="magenta-wool" destination="magenta-monument"/>
+    <wool team="red" color="lime" source="lime-wool" destination="lime-monument"/>
+    <wool team="red" color="green" source="green-wool" destination="green-monument"/>
+</wools>
+<spawners>
+    <spawner spawn-region="spawn-region" detect-region="detect-region" delay="7s">
+        <any>
+            <item material="golden apple"/>
+        </any>
+    </spawner>
+</spawners>
+<kill-rewards>
+    <reward>
+        <item material="golden apple"/>
+        <item amount="16" material="wood"/>
+    </reward>
+</kill-rewards>
+<items>
+    <remove>
+        <any>
+            <material>cooked fish</material>
+            <material>stained clay</material>
+            <material>stone button</material>
+            <material>brown mushroom</material>
+            <material>redstone</material>
+            <material>sandstone</material>
+            <material>sand</material>
+            <material>string</material>
+        </any>
+    </remove>
+    <repair>
+        <any>
+            <material>iron axe</material>
+            <material>stone sword</material>
+            <material>bow</material>
+            <material>iron pickaxe</material>
+        </any>
+    </repair>
+</items>
+<max-build-height>30</max-build-height>
+<timelock>on</timelock>
+<!--
+<block-drops>
+    <rule>
+        <region>
+            <everywhere/>
+        </region>
+        <filter>
+            <any>
+                <material>sponge</material>
+            </any>
+        </filter>
+        <drops>
+            <item amount="8" material="golden apple"/>
+            <item amount="1" material="iron leggings"/>
+        </drops>
+    </rule>
+    <rule>
+        <region>
+            <everywhere/>
+        </region>
+        <filter>
+            <any>
+                <material>double step</material>
+            </any>
+        </filter>
+        <drops>
+            <item amount="1" material="sandstone"/>
+        </drops>
+    </rule>
+</block-drops> -->
+</map>

@@ -1,0 +1,186 @@
+<map proto="2.0.0">
+<name>Smoke 2</name>
+<version>1.1.0</version>
+<game>dom</game>
+<objective>Capture 5 points (excluding top mid) sequentially before 12 minutes!</objective>
+<authors>
+    <author uuid="2958ea4c-3501-404e-88cc-12e8632f68cc"/> <!--  Nixani  -->
+    <author uuid="6bec5c3a-4934-4b19-9aa8-c7c569820f7d"/> <!--  Claf  -->
+</authors>
+<contributors>
+    <contributor uuid="9929437a-9b7d-4d7a-b05d-e22fe93ac042"/> <!-- triplezko -->
+</contributors>
+<teams>
+    <team id="red-team" color="red" max="7" max-overfill="7">Red</team>
+    <team id="yellow-team" color="yellow" max="7" max-overfill="7">Yellow</team>
+</teams>
+<kits>
+    <kit id="spawn-kit">
+        <item slot="0" material="stone sword" unsharable="true"/>
+        <item slot="1" material="bow" unsharable="true"/>
+        <item slot="2" material="golden apple" death-drop="false"/>
+        <item slot="8" material="arrow" amount="24" death-drop="false"/>
+        <helmet material="leather helmet" team-color="true" locked="true"/>
+        <chestplate material="leather chestplate" team-color="true" locked="true"/>
+        <leggings material="iron leggings" locked="true">
+            <enchantments>
+                <enchantment>protection fire</enchantment>
+            </enchantments>
+        </leggings>
+        <boots material="leather boots" team-color="true" locked="true">
+            <enchantments>
+                <enchantment>protection fall</enchantment>
+            </enchantments>
+        </boots>
+    </kit>
+</kits>
+<hunger>off</hunger>
+<kill-rewards>
+    <reward>
+        <item material="arrow" amount="12"/>
+        <item material="golden apple"/>
+    </reward>
+</kill-rewards>
+<spawns>
+    <spawn team="red-team" kit="spawn-kit">
+        <regions yaw="180">
+            <point>-38.5,10,-240.5</point>
+        </regions>
+    </spawn>
+    <spawn team="yellow-team" kit="spawn-kit">
+        <regions yaw="-90">
+            <point>36.5,10,-165.5</point>
+        </regions>
+    </spawn>
+    <default>
+        <regions yaw="45">
+            <point>2.5,3,-206.5</point>
+        </regions>
+    </default>
+</spawns>
+<respawns>
+    <respawn delay="3s" filter="spawn1"/>
+    <respawn delay="5s" filter="spawn2"/>
+    <respawn delay="7s" filter="spawn3"/>
+    <respawn delay="9s" filter="spawn4"/>
+    <respawn delay="11s" filter="spawn5"/>
+    <respawn delay="13s" filter="spawn6"/>
+</respawns>
+<filters>
+    <team id="only-red">red-team</team>
+    <team id="only-yellow">yellow-team</team>
+    <!-- Time filters -->
+    <not id="spawn1">
+        <time>2m</time>
+    </not>
+    <all id="spawn2">
+        <time>2m</time>
+        <not>
+            <time>4m</time>
+        </not>
+    </all>
+    <all id="spawn3">
+        <time>4m</time>
+        <not>
+            <time>6m</time>
+        </not>
+    </all>
+    <all id="spawn4">
+        <time>6m</time>
+        <not>
+            <time>8m</time>
+        </not>
+    </all>
+    <all id="spawn5">
+        <time>8m</time>
+        <not>
+            <time>10m</time>
+        </not>
+    </all>
+    <time id="spawn6">10m</time>
+    <!-- Portal filters -->
+    <all id="red-red2nd-portal">
+        <objective>red-2nd</objective>
+        <not>
+            <objective>top-mid</objective>
+        </not>
+    </all>
+    <all id="red-topmid-portal">
+        <objective>top-mid</objective>
+        <not>
+            <objective>yellow-2nd</objective>
+        </not>
+    </all>
+    <objective id="red-yellow2nd-portal">yellow-2nd</objective>
+    <all id="yellow-yellow2nd-portal">
+        <objective>yellow-2nd</objective>
+        <not>
+            <objective>top-mid</objective>
+        </not>
+    </all>
+    <all id="yellow-topmid-portal">
+        <objective>top-mid</objective>
+        <not>
+            <objective>red-2nd</objective>
+        </not>
+    </all>
+    <objective id="yellow-red2nd-portal">red-2nd</objective>
+</filters>
+<regions>
+    <cuboid id="red-red2nd-spawn-portal" min="-35,6,-244" max="-42,10,-245"/>
+    <cuboid id="red-topmid-spawn-portal" min="-35,6,-245" max="-42,10,-246"/>
+    <cuboid id="red-yellow2nd-spawn-portal" min="-35,6,-246" max="-42,10,-247"/>
+    <cuboid id="yellow-yellow2nd-spawn-portal" min="40,6,-162" max="41,10,-169"/>
+    <cuboid id="yellow-topmid-spawn-portal" min="41,6,-162" max="42,10,-169"/>
+    <cuboid id="yellow-red2nd-spawn-portal" min="42,6,-162" max="43,10,-169"/>
+    <point id="red-red2nd-spawn-out">-28.5,5,-251.5</point>
+    <point id="red-topmid-spawn-out">-24.5,6,-226.5</point>
+    <point id="red-yellow2nd-spawn-out">-8.5,2,-190.5</point>
+    <point id="yellow-yellow2nd-spawn-out">47.5,5,-174.5</point>
+    <point id="yellow-topmid-spawn-out">22.5,6,-179.5</point>
+    <point id="yellow-red2nd-spawn-out">-13.5,2,-195.5</point>
+    <rectangle id="red-spawn" min="-45,-269" max="-34,-249"/>
+    <rectangle id="yellow-spawn" min="65,-159" max="47,-170"/>
+    <cuboid id="red-last-capture" min="-20,7,-260" max="-11,18,-251"/>
+    <cuboid id="red-2nd-capture" min="-31,10,-220" max="-22,21,-229"/>
+    <cuboid id="top-mid-capture" min="-25,8,-179" max="-16,20,-188"/>
+    <cuboid id="bottom-mid-capture" min="-2,1,-202" max="8,12,-212"/>
+    <cuboid id="yellow-2nd-capture" min="25,10,-173" max="16,21,-182"/>
+    <cuboid id="yellow-last-capture" min="56,7,-193" max="47,18,-184"/>
+</regions>
+<applicators>
+    <apply region="red-spawn" enter="only-red" message="{region.error.enter.enemy-spawn}"/>
+    <apply region="yellow-spawn" enter="only-yellow" message="{region.error.enter.enemy-spawn}"/>
+    <apply block="never"/>
+</applicators>
+<portals>
+    <portal region="red-red2nd-spawn-portal" destination="red-red2nd-spawn-out" yaw="-90" filter="red-red2nd-portal"/>
+    <portal region="red-topmid-spawn-portal" destination="red-topmid-spawn-out" yaw="90" filter="red-topmid-portal"/>
+    <portal region="red-yellow2nd-spawn-portal" destination="red-yellow2nd-spawn-out" yaw="-90" filter="red-yellow2nd-portal"/>
+    <portal region="yellow-yellow2nd-spawn-portal" destination="yellow-yellow2nd-spawn-out" yaw="180" filter="yellow-yellow2nd-portal"/>
+    <portal region="yellow-topmid-spawn-portal" destination="yellow-topmid-spawn-out" yaw="0" filter="yellow-topmid-portal"/>
+    <portal region="yellow-red2nd-spawn-portal" destination="yellow-red2nd-spawn-out" yaw="180" filter="yellow-red2nd-portal"/>
+</portals>
+<hills time-multiplier="0.75" decay="0" recovery="1" capture-time="5s" overtime="true">
+    <hill id="red-last" name="Red Last" capture-region="red-last-capture" progress-region="red-last-capture" initial-owner="red-team" sequential-owner="red-team" capture-filter="only-yellow"/>
+    <hill id="red-2nd" name="Red 2nd" capture-region="red-2nd-capture" progress-region="red-2nd-capture" initial-owner="red-team"/>
+    <hill id="top-mid" name="Top Mid" capture-region="top-mid-capture" progress-region="top-mid-capture" required="false" sequential="false"/>
+    <hill id="bottom-mid" name="Bottom Mid" capture-region="bottom-mid-capture" progress-region="bottom-mid-capture"/>
+    <hill id="yellow-2nd" name="Yellow 2nd" capture-region="yellow-2nd-capture" progress-region="yellow-2nd-capture" initial-owner="yellow-team"/>
+    <hill id="yellow-last" name="Yellow Last" capture-region="yellow-last-capture" progress-region="yellow-last-capture" initial-owner="yellow-team" sequential-owner="yellow-team" capture-filter="only-red"/>
+</hills>
+<time-limit result="objective">12m</time-limit>
+<items>
+    <remove>
+        <any>
+            <material>potion</material>
+        </any>
+    </remove>
+    <death-drop>
+        <any>
+            <material>golden apple</material>
+            <material>arrow</material>
+        </any>
+    </death-drop>
+</items>
+</map>

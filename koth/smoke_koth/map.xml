@@ -1,0 +1,82 @@
+<map proto="2.0.0">
+<name>Smoke KoTH</name>
+<version>1.0.0</version>
+<game>koth</game>
+<objective>{map.objective.deathmatch.limit,750}</objective>
+<authors>
+    <author uuid="2958ea4c-3501-404e-88cc-12e8632f68cc"/> <!-- Nixani -->
+    <author uuid="6bec5c3a-4934-4b19-9aa8-c7c569820f7d"/> <!-- Claf -->
+</authors>
+<teams>
+    <team id="blue" color="blue" max="7">Blue</team>
+    <team id="red"  color="red"  max="7">Red</team>
+</teams>
+<kits>
+    <kit id="main-kit">
+        <item slot="0" material="stone sword" unsharable="true"/>
+        <item slot="1" material="bow" unsharable="true"/>
+        <item slot="2" material="golden apple" death-drop="false"/>
+        <item slot="8" material="arrow" amount="24" death-drop="false"/>
+        <helmet        material="leather helmet"     team-color="true" locked="true"/>
+        <chestplate    material="leather chestplate" team-color="true" locked="true"/>
+        <leggings      material="iron leggings"      locked="true">
+            <enchantments>
+                <enchantment>protection projectile</enchantment>
+            </enchantments>
+        </leggings>
+        <boots         material="leather boots"      team-color="true" locked="true"/>
+        <effect duration="3" amplifier="10">damage resistance</effect>
+    </kit>
+</kits>
+<hunger>off</hunger>
+<timelock>on</timelock>
+<spawns>
+    <default>
+        <regions yaw="135">
+            <point>80.5,14,-292.5</point>
+        </regions>
+    </default>
+    <spawn team="blue" kit="main-kit">
+        <regions yaw="0">
+            <point>107.5,22,-323.5</point>
+        </regions>
+    </spawn>
+    <spawn team="red" kit="main-kit">
+        <regions yaw="-90">
+            <point>49.5,22,-265.5</point>
+        </regions>
+    </spawn>
+</spawns>
+<filters>
+    <team id="only-blue">blue</team>
+    <team id="only-red">red</team>
+</filters>
+<regions>
+    <cuboid id="point-top-base"    min="67,20,-306" max="60,24,-313"/>
+    <cuboid id="point-center-base" min="84,13,-289" max="77,17,-296"/>
+    <cuboid id="point-bottom-base" min="68,8,-305"  max="61,12,-312"/>
+</regions>
+<applicators>
+    <region block="never"/>
+</applicators>
+<score limit="750"/>
+<hills capture-time="6s" points="1">
+    <hill id="point-top"    name="Top"    capture-region="point-top-base"    progress-region="point-top-base"    control-region="point-top-base"/>
+    <hill id="point-center" name="Center" capture-region="point-center-base" progress-region="point-center-base" control-region="point-center-base"/>
+    <hill id="point-bottom" name="Bottom" capture-region="point-bottom-base" progress-region="point-bottom-base" control-region="point-bottom-base"/>
+</hills>
+<kill-rewards>
+    <reward>
+        <item material="arrow" amount="12" death-drop="false"/>
+        <item material="golden apple" death-drop="false"/>
+    </reward>
+</kill-rewards>
+<items>
+    <death-drop>
+        <any>
+            <material>golden apple</material>
+            <material>arrow</material>
+        </any>
+    </death-drop>
+</items>
+</map>

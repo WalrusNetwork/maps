@@ -1,0 +1,162 @@
+<?xml version="1.0"?>
+<map proto="2.0.0">
+<name>Golden Drought III</name>
+<version>2.0.1</version>
+<game>ctw</game>
+<objective>{map.objective.capture.plural}</objective>
+<authors>
+    <author uuid="459fd919-0d58-401a-9601-6cab1eb721ab"/> <!-- Reshif -->
+</authors>
+<contributors>
+    <contributor uuid="2ca8072f-74be-4798-85b8-bbce03aa91af" contribution="Building Help"/> <!-- Tywnis -->
+</contributors>
+<time-limit result="objectives">45m</time-limit>
+<teams>
+    <team id="red-team" color="red" max="8">Red</team>
+    <team id="blue-team" color="blue" max="8">Blue</team>
+</teams>
+<kits>
+    <kit id="spawn-kit">
+        <item slot="0" material="stone sword"/>
+        <item slot="1" material="bow">
+            <enchantments>
+                <enchantment>arrow infinite</enchantment>
+            </enchantments>
+        </item>
+        <item slot="2" material="iron pickaxe">
+            <enchantments>
+                <enchantment>dig speed</enchantment>
+            </enchantments>
+        </item>
+        <item slot="3" amount="64" material="sandstone"/>
+        <item slot="4" amount="64" material="sandstone"/>
+        <item slot="5" amount="64" damage="2" material="wood"/>
+        <item slot="6" amount="32" material="ladder"/>
+        <item slot="7" amount="2" material="golden apple"/>
+        <item slot="8" amount="64" material="cooked chicken"/>
+        <item slot="28" amount="1" material="arrow"/>
+        <item slot="30" amount="64" material="sandstone"/>
+        <item slot="31" amount="64" material="sandstone"/>
+        <item slot="32" amount="4" material="web"/>
+        <effect duration="5" amplifier="3">heal</effect>
+    </kit>
+</kits>
+<spawns>
+    <spawn team="blue-team" kit="spawn-kit" yaw="90">
+        <region>
+            <point>114,9,0</point>
+        </region>
+    </spawn>
+    <spawn team="red-team" kit="spawn-kit" yaw="-90">
+        <region>
+            <point>-119,9,0</point>
+        </region>
+    </spawn>
+    <default yaw="-180">
+        <region>
+            <cuboid min="-1,20,49" max="1,20,47"/>
+        </region>
+    </default>
+</spawns>
+<filters>
+    <team id="only-red">red-team</team>
+    <team id="only-blue">blue-team</team>
+    <material id="only-gold">gold block</material>
+    <not id="anti-grief-red">
+        <all>
+            <team>red-team</team>
+            <material>chest</material>
+        </all>
+    </not>
+    <not id="anti-grief-blue">
+        <all>
+            <team>blue-team</team>
+            <material>chest</material>
+        </all>
+    </not>
+    <not id="deny-void">
+        <void/>
+    </not>
+    <all id="only-red-usage">
+        <material>chest</material>
+        <team>red-team</team>
+    </all>
+    <all id="only-blue-usage">
+        <material>chest</material>
+        <team>blue-team</team>
+    </all>
+</filters>
+<regions>
+    <negative id="not-center">
+        <union id="center">
+            <rectangle id="real-center" min="-46,31" max="46,-31"/>
+            <rectangle id="blue-center" min="58,-6" max="45,6"/>
+            <rectangle id="red-center" min="-58,6" max="-45,-6"/>
+        </union>
+    </negative>
+    <union id="bases">
+        <cuboid id="red-base" min="-58,0,11" max="-150,50,-11"/>
+        <cuboid id="blue-base" min="58,0,-11" max="150,50,11"/>
+    </union>
+    <union id="int-bases">
+        <cuboid id="int-red-base" min="-65,0,11" max="-117,50,-11"/>
+        <cuboid id="int-blue-base" min="65,0,-11" max="117,50,11"/>
+    </union>
+    <union id="red-wool-rooms"> <!-- Red must enter -->
+        <cuboid id="green-wool" min="114,0,-30" max="102,50,-18"/>
+        <cuboid id="lime-wool" min="114,0,18" max="102,50,30"/>
+    </union>
+    <union id="blue-wool-rooms"> <!-- Blue must enter -->
+        <cuboid id="magenta-wool" min="-114,0,30" max="-102,50,18"/>
+        <cuboid id="pink-wool" min="-114,0,-18" max="-102,50,-30"/>
+    </union>
+    <block id="green-monument">-66,10,-1</block>
+    <block id="lime-monument">-66,10,0</block>
+    <block id="magenta-monument">65,10,0</block>
+    <block id="pink-monument">65,10,-1</block>
+</regions>
+<applicators>
+    <apply region="bases" block-break="only-gold" block-place="never" message="{region.error.modify.spawn.only-gold}"/>
+    <apply region="int-red-base" enter="only-red" message="{region.error.enter.enemy-spawn}"/>
+    <apply region="int-blue-base" enter="only-blue" message="{region.error.enter.enemy-spawn}"/>
+    <apply region="red-wool-rooms" enter="only-red" message="{region.error.enter.own-wool}"/>
+    <apply region="blue-wool-rooms" enter="only-blue" message="{region.error.enter.own-wool}"/>
+    <apply region="red-wool-rooms" block="only-red" use="only-red-usage" message="{region.error.modify.own-wool}"/>
+    <apply region="blue-wool-rooms" block="only-blue" use="only-blue-usage" message="{region.error.modify.own-wool}"/>
+    <apply region="not-center" block="deny-void" message="{region.error.modify.outside-playable}"/>
+</applicators>
+<wools>
+    <wool team="red-team" color="green" source="green-wool" destination="green-monument"/>
+    <wool team="red-team" color="lime" source="lime-wool" destination="lime-monument"/>
+    <wool team="blue-team" color="magenta" source="magenta-wool" destination="magenta-monument"/>
+    <wool team="blue-team" color="pink" source="pink-wool" destination="pink-monument"/>
+</wools>
+<kill-rewards>
+    <reward>
+        <item material="golden apple"/>
+        <item material="sandstone" amount="32"/>
+        <item material="wood" damage="2" amount="16"/>
+    </reward>
+</kill-rewards>
+<items>
+    <remove>
+        <any>
+            <material>sandstone</material>
+            <material>ladder</material>
+            <material>string</material>
+            <material>chainmail chestplate</material>
+            <material>cooked chicken</material>
+        </any>
+    </remove>
+    <repair>
+        <any>
+            <material>stone sword</material>
+            <material>bow</material>
+            <material>iron pickaxe</material>
+        </any>
+    </repair>
+</items>
+<max-build-height>25</max-build-height>
+<respawn delay="5s"/>
+<timelock>on</timelock>
+</map>

@@ -1,0 +1,242 @@
+<map proto="2.0.0">
+<name>Bamboo Valley IV</name>
+<version>1.2.0</version>
+<game>dom</game>
+<objective>{map.objective.hill.domination.sequential}</objective>
+<authors>
+    <author uuid="621b2aa8-4e5f-4ed8-bd36-0ae2f8952a06"/> <!--  thestrangeboy1  -->
+</authors>
+<contributors>
+    <contributor uuid="2958ea4c-3501-404e-88cc-12e8632f68cc"/> <!--  NixaniaXi  -->
+    <contributor uuid="459fd919-0d58-401a-9601-6cab1eb721ab"/> <!--  Reshif  -->
+</contributors>
+<teams>
+    <team id="red"  color="red"  max="0">Red</team>
+    <team id="blue" color="blue" max="0">Blue</team>
+</teams>
+<kits>
+    <kit id="spawn">
+        <item slot="0" material="stone sword" unsharable="true"/>
+        <item slot="1" material="bow"         unsharable="true"/>
+        <item slot="2" material="golden apple" death-drop="false"/>
+        <item slot="8" material="arrow" amount="24" death-drop="false"/>
+        <helmet     material="leather helmet"     team-color="true" locked="true"/>
+        <chestplate material="leather chestplate" team-color="true" locked="true"/>
+        <leggings   material="iron leggings"                        locked="true">
+            <enchantments>
+                <enchantment>protection projectile</enchantment>
+            </enchantments>
+        </leggings>
+        <boots     material="leather boots"       team-color="true" locked="true"/>
+    </kit>
+</kits>
+<hunger>off</hunger>
+<timelock>true</timelock>
+<respawn delay="4s" auto="true"/>
+<spawns>
+    <spawn team="red" filter="spawn1" kit="spawn">
+        <regions yaw="135">
+            <point>-24,25,78</point>
+        </regions>
+    </spawn>
+    <spawn team="red" filter="spawn2" kit="spawn">
+        <regions yaw="135">
+            <point>-24,75,78</point>
+        </regions>
+    </spawn>
+    <spawn team="red" filter="spawn3" kit="spawn">
+        <regions yaw="135">
+            <point>-24,125,78</point>
+        </regions>
+    </spawn>
+    <spawn team="red" filter="spawn4" kit="spawn">
+        <regions yaw="135">
+            <point>-24,175,78</point>
+        </regions>
+    </spawn>
+    <spawn team="red" filter="spawn5" kit="spawn">
+        <regions yaw="135">
+            <point>-24,225,78</point>
+        </regions>
+    </spawn>
+    <spawn team="red" filter="spawn6" kit="spawn">
+        <regions yaw="135">
+            <point>-24,250,78</point>
+        </regions>
+    </spawn>
+    <spawn team="blue" filter="spawn1" kit="spawn">
+        <regions yaw="-45">
+            <point>-174,25,-86</point>
+        </regions>
+    </spawn>
+    <spawn team="blue" filter="spawn2" kit="spawn">
+        <regions yaw="-45">
+            <point>-174,75,-86</point>
+        </regions>
+    </spawn>
+    <spawn team="blue" filter="spawn3" kit="spawn">
+        <regions yaw="-45">
+            <point>-174,125,-86</point>
+        </regions>
+    </spawn>
+    <spawn team="blue" filter="spawn4" kit="spawn">
+        <regions yaw="-45">
+            <point>-174,175,-86</point>
+        </regions>
+    </spawn>
+    <spawn team="blue" filter="spawn5" kit="spawn">
+        <regions yaw="-45">
+            <point>-174,225,-86</point>
+        </regions>
+    </spawn>
+    <spawn team="blue" filter="spawn6" kit="spawn">
+        <regions yaw="-45">
+            <point>-174,250,-86</point>
+        </regions>
+    </spawn>
+    <default>
+        <regions yaw="90">
+            <point>-66,38,-4</point>
+        </regions>
+    </default>
+</spawns>
+<filters>
+    <team id="only-blue">blue</team>
+    <team id="only-red">red</team>
+    <!-- Point Filters -->
+    <!-- Blue Portal Filters -->
+    <all id="blueBluePortal">
+        <objective>blue-2nd</objective>
+        <not>
+            <any>
+                <objective>mid</objective>
+                <objective>red-2nd</objective>
+            </any>
+        </not>
+    </all>
+    <all id="blueMidPortal">
+        <objective>blue-2nd</objective>
+        <objective>mid</objective>
+        <not>
+            <objective>red-2nd</objective>
+        </not>
+    </all>
+    <all id="blueRedPortal">
+        <objective>blue-2nd</objective>
+        <objective>mid</objective>
+        <objective>red-2nd</objective>
+    </all>
+    <!-- Red Portal Filters -->
+    <all id="redRedPortal">
+        <objective>red-2nd</objective>
+        <not>
+            <any>
+                <objective>mid</objective>
+                <objective>blue-2nd</objective>
+            </any>
+        </not>
+    </all>
+    <all id="redMidPortal">
+        <objective>red-2nd</objective>
+        <objective>mid</objective>
+        <not>
+            <objective>blue-2nd</objective>
+        </not>
+    </all>
+    <all id="redBluePortal">
+        <objective>red-2nd</objective>
+        <objective>mid</objective>
+        <objective>blue-2nd</objective>
+    </all>
+    <!-- Time Filters -->
+    <not id="spawn1">
+        <time>2m</time>
+    </not>
+    <all id="spawn2">
+        <time>2m</time>
+        <not>
+            <time>4m</time>
+        </not>
+    </all>
+    <all id="spawn3">
+        <time>4m</time>
+        <not>
+            <time>6m</time>
+        </not>
+    </all>
+    <all id="spawn4">
+        <time>6m</time>
+        <not>
+            <time>8m</time>
+        </not>
+    </all>
+    <all id="spawn5">
+        <time>8m</time>
+        <not>
+            <time>10m</time>
+        </not>
+    </all>
+    <all id="spawn6">
+        <time>10m</time>
+    </all>
+    <any id="nature">
+        <material>sugar cane block</material>
+        <material>long grass</material>
+    </any>
+</filters>
+<regions>
+    <cuboid id="red-last-region"    min="-51,12,52"   max="-58,15,45"/>
+    <cuboid id="red-2nd-region"     min="-89,17,26"   max="-96,20,19"/>
+    <cuboid id="mid-region"         min="-95,11,-0"   max="-103,14,-8"/>
+    <cuboid id="mid-region-display" min="-117,20,-24" max="-81,10,16"/>
+    <cuboid id="blue-2nd-region"    min="-109,17,-34" max="-102,20,-27"/>
+    <cuboid id="blue-last-region"   min="-147,12,-60" max="-140,15,-53"/>
+    <cuboid id="red-portal"         min="-22,21,80"   max="-26,23,76"/>
+    <cuboid id="blue-portal"        min="-176,21,-88" max="-172,23,-84"/>
+    <point  id="red-to-red-2nd">-54,8,48</point>
+    <point  id="red-to-mid">-91,10,51</point>
+    <point  id="red-to-blue-2nd">-99,8,-7</point>
+    <point  id="blue-to-blue-2nd">-143,8,-56</point>
+    <point  id="blue-to-mid">-106,10,-56</point>
+    <point  id="blue-to-red-2nd">-98,8,0</point>
+</regions>
+<applicators>
+    <apply block="nature"/>
+</applicators>
+<time-limit result="objective">12m</time-limit>
+<hills overtime="true" capture-time="10s">
+    <hill id="red-last"  name="Red Last"  initial-owner="red"  capture-region="red-last-region"  progress-region="red-last-region" capture-filter="only-blue"/>
+    <hill id="red-2nd"   name="Red 2nd"   initial-owner="red"  capture-region="red-2nd-region"   progress-region="red-2nd-region"/>
+    <hill id="mid"       name="Mid"                            capture-region="mid-region"       progress-region="mid-region-display"/>
+    <hill id="blue-2nd"  name="Blue 2nd"  initial-owner="blue" capture-region="blue-2nd-region"  progress-region="blue-2nd-region"/>
+    <hill id="blue-last" name="Blue Last" initial-owner="blue" capture-region="blue-last-region" progress-region="blue-last-region" capture-filter="only-red"/>
+</hills>
+<portals>
+    <portal region="red-portal"  destination="red-to-red-2nd"   yaw="90"  filter="redRedPortal"/>
+    <portal region="red-portal"  destination="red-to-mid"       yaw="180" filter="redMidPortal"/>
+    <portal region="red-portal"  destination="red-to-blue-2nd"  yaw="180" filter="redBluePortal"/>
+    <portal region="blue-portal" destination="blue-to-blue-2nd" yaw="-90" filter="blueBluePortal"/>
+    <portal region="blue-portal" destination="blue-to-mid"      yaw="0"   filter="blueMidPortal"/>
+    <portal region="blue-portal" destination="blue-to-red-2nd"  yaw="0"   filter="blueRedPortal"/>
+</portals>
+<kill-rewards>
+    <reward>
+        <item material="golden apple" death-drop="false"/>
+        <item material="arrow" amount="12" death-drop="false"/>
+    </reward>
+</kill-rewards>
+<items>
+    <remove>
+        <any>
+            <material>seeds</material>
+            <material>sugar cane</material>
+        </any>
+    </remove>
+    <death-drop>
+        <any>
+            <material>golden apple</material>
+            <material>arrow</material>
+        </any>
+    </death-drop>
+</items>
+</map>

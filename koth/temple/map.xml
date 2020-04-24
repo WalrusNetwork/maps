@@ -1,0 +1,85 @@
+<?xml version="1.0"?>
+<map proto="2.0.0">
+<name>Temple</name>
+<version>1.0.0</version>
+<game>koth</game>
+<objective>{map.objective.deathmatch.limit,750}</objective>
+<authors>
+    <author uuid="2958ea4c-3501-404e-88cc-12e8632f68cc"/> <!-- NixaniaXi -->
+</authors>
+<teams>
+    <team id="blue-team" color="blue" max="7">Blue</team>
+    <team id="red-team"  color="red"  max="7">Red</team>
+</teams>
+<kits>
+    <kit id="main-kit">
+        <item slot="0" material="stone sword" unsharable="true"/>
+        <item slot="1" material="bow" unsharable="true"/>
+        <item slot="2" material="golden apple" death-drop="false"/>
+        <item slot="8" material="arrow" amount="24" death-drop="false"/>
+        <helmet        material="leather helmet"     team-color="true" locked="true"/>
+        <chestplate    material="leather chestplate" team-color="true" locked="true"/>
+        <leggings      material="iron leggings"      locked="true">
+            <enchantments>
+                <enchantment>protection projectile</enchantment>
+            </enchantments>
+        </leggings>
+        <boots         material="leather boots"      team-color="true" locked="true"/>
+        <effect duration="3" amplifier="10">damage resistance</effect>
+    </kit>
+</kits>
+<hunger>off</hunger>
+<timelock>on</timelock>
+<spawns>
+    <spawn team="blue-team" kit="main-kit">
+        <region yaw="-90">
+            <point>-70.5,30,-18.5</point>
+        </region>
+    </spawn>
+    <spawn team="red-team" kit="main-kit">
+        <region yaw="0">
+            <point>-18.5,30,-70.5</point>
+        </region>
+    </spawn>
+    <default>
+        <region yaw="135">
+            <point>-10.5,42,-10.5</point>
+        </region>
+    </default>
+</spawns>
+<filters>
+    <team id="only-blue">blue-team</team>
+    <team id="only-red">red-team</team>
+</filters>
+<regions>
+    <cylinder id="top-capture"  base="-22.5,38,-22.5" radius="6.5" height="2"/>
+    <cylinder id="top-progress" base="-22.5,37,-22.5" radius="6.5" height="1"/>
+    <cylinder id="garden-capture"  base="-48.5,35,-48.5" radius="6.5" height="2"/>
+    <cylinder id="garden-progress" base="-48.5,34,-48.5" radius="6.5" height="1"/>
+    <cylinder id="underground-capture"  base="-26.5,21,-26.5" radius="6.5" height="2"/>
+    <cylinder id="underground-progress" base="-26.5,20,-26.5" radius="6.5" height="1"/>
+</regions>
+<applicators>
+    <apply block="never"/>
+</applicators>
+<score limit="750"/>
+<hills capture-time="6s" points="1">
+    <hill name="Top"         capture-region="top-capture"         progress-region="top-progress"         control-region="top-progress"/>
+    <hill name="Garden"      capture-region="garden-capture"      progress-region="garden-progress"      control-region="garden-progress"/>
+    <hill name="Underground" capture-region="underground-capture" progress-region="underground-progress" control-region="underground-progress"/>
+</hills>
+<kill-rewards>
+    <reward>
+        <item material="arrow" amount="12" death-drop="false"/>
+        <item material="golden apple" death-drop="false"/>
+    </reward>
+</kill-rewards>
+<items>
+    <death-drop>
+        <any>
+            <material>golden apple</material>
+            <material>arrow</material>
+        </any>
+    </death-drop>
+</items>
+</map>

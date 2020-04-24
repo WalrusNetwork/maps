@@ -1,0 +1,206 @@
+<?xml version="1.0"?>
+<map proto="2.0.0">
+<name>Terricreus</name>
+<version>1.0.0</version>
+<game>ctw</game>
+<objective>{map.objective.capture.singular}</objective>
+<authors>
+    <author uuid="6bec5c3a-4934-4b19-9aa8-c7c569820f7d"/> <!-- Claf -->
+</authors>
+<contributors>
+    <contributor uuid="a23a1d91-7e97-40b4-8f5e-1ab82d8f5ade" contribution="XML Fixes"/> <!--  chle_  -->
+    <contributor uuid="dff980ed-9f69-491e-b79c-30c21350baf2" contribution="XML Fixes"/> <!-- DoomyBoy -->
+    <contributor uuid="0c44ca5a-6a42-49b7-81f2-58dc6d2ae3e9" contribution="Helped With Chicago Edits"/> <!-- Xerocoles -->
+</contributors>
+<time-limit result="objectives">20m</time-limit>
+<teams>
+    <team id="red-team" color="red" max="5">Red</team>
+    <team id="blue-team" color="blue" max="5">Blue</team>
+</teams>
+<respawn delay="5s" auto="true" blackout="true"/>
+<kits>
+    <kit id="spawn-kit">
+        <item slot="0" material="stone sword"/>
+        <item slot="1" material="bow"/>
+        <item slot="2" material="iron pickaxe">
+            <enchantments>
+                <enchantment level="3">durability</enchantment>
+            </enchantments>
+        </item>
+        <item slot="3" material="stone axe">
+            <enchantments>
+                <enchantment>durability</enchantment>
+                <enchantment>dig speed</enchantment>
+            </enchantments>
+        </item>
+        <item slot="4" amount="16" material="cooked fish"/>
+        <item slot="5" amount="20" material="smooth brick"/>
+        <item slot="6" amount="4" damage="2" material="wood"/>
+        <item slot="8" amount="36" material="arrow"/>
+        <helmet team-color="true" material="leather helmet"/>
+        <chestplate material="chainmail chestplate"/>
+        <leggings material="chainmail leggings"/>
+        <boots team-color="true" material="leather boots"/>
+        <effect duration="5">heal</effect>
+    </kit>
+</kits>
+<spawns>
+    <spawn team="red-team" kit="spawn-kit">
+        <region yaw="-180">
+            <point>163.5,5,37.5</point>
+        </region>
+    </spawn>
+    <spawn team="blue-team" kit="spawn-kit">
+        <region yaw="0">
+            <point>163.5,5,147.5</point>
+        </region>
+    </spawn>
+    <default>
+        <region yaw="0">
+            <cuboid min="166.5,5,92.5" max="166.5,5,92.5"/>
+        </region>
+    </default>
+</spawns>
+<filters>
+    <team id="only-red">red-team</team>
+    <team id="only-blue">blue-team</team>
+    <not id="deny-void">
+        <void/>
+    </not>
+</filters>
+<regions>
+    <negative id="void">
+        <union>
+            <rectangle min="160,16" max="187,23"/>
+            <rectangle min="178,22" max="187,33"/>
+            <rectangle min="168,42" max="187,33"/>
+            <rectangle min="178,42" max="187,143"/>
+            <rectangle min="178,47" max="146,56"/>
+            <rectangle min="146,42" max="155,47"/>
+            <cuboid min="159,7,33" max="146,28,42"/>
+            <rectangle min="160,56" max="173,129"/>
+            <rectangle min="146,56" max="151,129"/>
+            <rectangle min="160,162" max="187,169"/>
+            <rectangle min="187,162" max="178,152"/>
+            <rectangle min="168,152" max="187,143"/>
+            <rectangle min="178,138" max="146,129"/>
+            <rectangle min="146,143" max="155,138"/>
+            <cuboid min="159,7,152" max="146,28,143"/>
+            <rectangle min="178,56" max="170,60"/>
+            <rectangle min="178,129" max="170,125"/>
+        </union>
+    </negative>
+    <union id="spawns">
+        <cuboid id="red-spawn" min="168,0,23" max="159,16,42"/>
+        <cuboid id="blue-spawn" min="168,0,143" max="159,16,162"/>
+    </union>
+    <cuboid id="cyan-woolroom" min="168,16,33" max="159,28,42"/>
+    <cuboid id="green-woolroom" min="168,16,143" max="159,28,152"/>
+    <block id="cyan-monument">163,6,145</block>
+    <block id="green-monument">163,6,39</block>
+    <!-- spawners -->
+    <point id="middle-gapple-spawn-region">166.5,4.5,92.5</point>
+    <sphere id="middle-gapple-detect-region" origin="166.5,4.5,92.5" radius="5"/>
+    <point id="middle-arrow-spawn-region">182.5,14.5,92.5</point>
+    <sphere id="middle-arrow-detect-region" origin="182.5,14.5,92.5" radius="3"/>
+    <point id="red-stonebrick-spawn-region">166.5,5.5,72.5</point>
+    <sphere id="red-stonebrick-detect-region" origin="166.5,5.5,72.5" radius="3"/>
+    <point id="blue-stonebrick-spawn-region">166.5,5.5,112.5</point>
+    <sphere id="blue-stonebrick-detect-region" origin="166.5,5,112.5" radius="3"/>
+    <point id="cyan-arrow-spawn-region">164.5,21.5,39.5</point>
+    <sphere id="cyan-arrow-detect-region" origin="164.5,21.5,39.5" radius="3"/>
+    <point id="green-arrow-spawn-region">164.5,21.5,145.5</point>
+    <sphere id="green-arrow-detect-region" origin="164.5,21.5,145.5" radius="3"/>
+    <union id="protect-spawners">
+        <cuboid min="166,3,93" max="167,5,92"/>
+        <cuboid min="182,13,92" max="183,15,93"/>
+        <cuboid min="167,4,73" max="166,6,72"/>
+        <cuboid min="166,4,112" max="167,6,113"/>
+        <cuboid min="164,20,40" max="165,22,39"/>
+        <cuboid min="165,20,145" max="164,22,146"/>
+    </union>
+</regions>
+<applicators>
+    <apply region="protect-spawners" block="never"/>
+    <apply region="spawns" block="never" message="{region.error.modify.spawn}"/>
+    <apply region="cyan-woolroom" block="only-blue" message="{region.error.modify.own-wool}"/>
+    <apply region="cyan-woolroom" enter="only-blue" message="{region.error.enter.own-wool}"/>
+    <apply region="green-woolroom" block="only-red" message="{region.error.modify.own-wool}"/>
+    <apply region="green-woolroom" enter="only-red" message="{region.error.enter.own-wool}"/>
+    <apply region="void" block="never" message="{region.error.modify.void}"/>
+</applicators>
+<wools>
+    <wool team="red-team" color="green" source="green-woolroom" destination="green-monument"/>
+    <wool team="blue-team" color="cyan" source="cyan-woolroom" destination="cyan-monument"/>
+</wools>
+<spawners>
+    <spawner spawn-region="middle-gapple-spawn-region" detect-region="middle-gapple-detect-region" delay="7s">
+        <any>
+            <item material="golden apple"/>
+        </any>
+    </spawner>
+    <spawner spawn-region="middle-arrow-spawn-region" detect-region="middle-arrow-detect-region" delay="1s">
+        <any>
+            <item material="arrow"/>
+        </any>
+    </spawner>
+    <spawner spawn-region="red-stonebrick-spawn-region" detect-region="red-stonebrick-detect-region" delay="10s">
+        <any>
+            <item amount="4" material="smooth brick"/>
+        </any>
+    </spawner>
+    <spawner spawn-region="blue-stonebrick-spawn-region" detect-region="blue-stonebrick-detect-region" delay="10s">
+        <any>
+            <item amount="4" material="smooth brick"/>
+        </any>
+    </spawner>
+    <spawner spawn-region="cyan-arrow-spawn-region" detect-region="cyan-arrow-detect-region" delay="1s">
+        <any>
+            <item material="arrow"/>
+        </any>
+    </spawner>
+    <spawner spawn-region="green-arrow-spawn-region" detect-region="green-arrow-detect-region" delay="1s">
+        <any>
+            <item material="arrow"/>
+        </any>
+    </spawner>
+</spawners>
+<kill-rewards>
+    <reward>
+        <item material="golden apple"/>
+        <item amount="6" damage="2" material="wood"/>
+        <item amont="12" material="arrow"/>
+    </reward>
+</kill-rewards>
+<items>
+    <remove>
+        <any>
+            <material>stained clay</material>
+            <material>sandstone</material>
+            <material>nether brick</material>
+            <material>ender stone</material>
+            <material>nether brick stairs</material>
+            <material>nether fence</material>
+            <material>step:6</material>
+            <material>dark oak stairs</material>
+            <material>wood step:5</material>
+            <material>log 2:1</material>
+            <material>wood:2</material>
+            <material>birch wood stairs</material>
+            <material>wood step:2</material>
+            <material>dark oak fence</material>
+            <material>sand</material>
+            <material>stone sword</material>
+            <material>bow</material>
+            <material>iron pickaxe</material>
+            <material>stone axe</material>
+            <material>leather helmet</material>
+            <material>leather boots</material>
+            <material>chainmail chestplate</material>
+            <material>chainmail leggings</material>
+        </any>
+    </remove>
+</items>
+<max-build-height>28</max-build-height>
+<timelock>on</timelock>
+</map>

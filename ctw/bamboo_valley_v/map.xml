@@ -1,0 +1,153 @@
+<?xml version="1.0"?>
+<map proto="2.0.0">
+<name>Bamboo Valley V</name>
+<version>1.0.0</version>
+<game>ctw</game>
+<objective>{map.objective.capture.plural}</objective>
+<authors>
+    <author uuid="621b2aa8-4e5f-4ed8-bd36-0ae2f8952a06"/> <!-- Strangey -->
+</authors>
+<contributors>
+    <contributor uuid="9929437a-9b7d-4d7a-b05d-e22fe93ac042" contribution="XML"/> <!-- triplezko -->
+</contributors>
+<time-limit result="objective">45m</time-limit>
+<teams>
+    <team id="red-team" color="red" max="8" max-overfill="8">Red</team>
+    <team id="blue-team" color="blue" max="8" max-overfill="8">Blue</team>
+</teams>
+<kits>
+    <kit id="spawn-kit">
+        <item slot="0" material="iron sword"/>
+        <item slot="1" material="bow">
+            <enchantments>
+                <enchantment>arrow infinite</enchantment>
+            </enchantments>
+        </item>
+        <item slot="2" material="iron pickaxe">
+            <enchantments>
+                <enchantment>dig speed</enchantment>
+            </enchantments>
+        </item>
+        <item slot="3" material="iron axe">
+            <enchantments>
+                <enchantment>dig speed</enchantment>
+            </enchantments>
+        </item>
+        <item slot="4" amount="64" damage="3" material="wood"/>
+        <item slot="5" amount="64" damage="3" material="wood"/>
+        <item slot="6" amount="64" material="glass"/>
+        <item slot="7" amount="64" material="golden carrot"/>
+        <item slot="28" material="arrow"/>
+        <effect duration="4s" amplifier="5">damage resistance</effect>
+    </kit>
+</kits>
+<spawns>
+    <spawn team="red-team" kit="spawn-kit">
+        <region yaw="0">
+            <point>47,3,-211.5</point>
+        </region>
+    </spawn>
+    <spawn team="blue-team" kit="spawn-kit">
+        <region yaw="180">
+            <point>47,3,-12.5</point>
+        </region>
+    </spawn>
+    <default>
+        <region yaw="-90">
+            <point>-0.5,40,-111.5</point>
+        </region>
+    </default>
+</spawns>
+<filters>
+    <team id="only-red">red-team</team>
+    <team id="only-blue">blue-team</team>
+    <material id="only-iron">iron block</material>
+    <not id="deny-void">
+        <void/>
+    </not>
+</filters>
+<regions>
+    <block id="yellow-monument">47,26,-193</block>
+    <block id="orange-monument">46,26,-193</block>
+    <block id="purple-monument">46,26,-32</block>
+    <block id="pink-monument">47,26,-32</block>
+    <union id="red-woolrooms">
+        <cuboid id="yellow-woolroom" min="110,0,-70" max="100,50,-60"/>
+        <cuboid id="orange-woolroom" min="-6,0,-70" max="-16,50,-60"/>
+    </union>
+    <union id="blue-woolrooms">
+        <cuboid id="purple-woolroom" min="-16,0,-154" max="-6,50,-164"/>
+        <cuboid id="pink-woolroom" min="100,0,-154" max="110,50,-164"/>
+    </union>
+    <union id="spawns">
+        <cuboid min="37,0,-217" max="57,10,-200"/>
+        <cuboid min="57,0,-7" max="36,10,-24"/>
+    </union>
+    <negative id="void-regions">
+        <union>
+            <rectangle min="15,-217" max="23,-209"/> <!-- red back bridges -->
+            <rectangle min="71,-217" max="79,-209"/>
+            <complement> <!-- red water -->
+                <rectangle min="-16,-198" max="110,-180"/>
+                <rectangle min="42,-185" max="52,-180"/>
+            </complement>
+            <rectangle min="79,-7" max="71,-15"/> <!-- blue back bridges -->
+            <rectangle min="23,-7" max="15,-15"/>
+            <complement> <!-- blue water -->
+                <rectangle min="110,-26" max="-16,-44"/>
+                <rectangle min="52,-39" max="42,-44"/>
+            </complement>
+            <rectangle min="19,-171" max="75,-53"/> <!-- mid -->
+        </union>
+    </negative>
+    <union id="cant-break">
+        <block>105,12,-66</block> <!-- beacon glass -->
+        <block>-12,12,-66</block>
+        <block>-12,12,-159</block>
+        <block>105,12,-159</block>
+        <cuboid min="49,24,-192" max="45,29,-194"/> <!-- wool monuments -->
+        <cuboid min="45,24,-32" max="49,29,-30"/>
+    </union>
+</regions>
+<applicators>
+    <apply region="cant-break" block="never"/>
+    <apply region="spawns" block="only-iron" message="{region.error.modify.spawn.only-iron}"/>
+    <apply region="red-woolrooms" block="only-red" message="{region.error.modify.own-wool}"/>
+    <apply region="red-woolrooms" enter="only-red" message="{region.error.enter.own-wool}"/>
+    <apply region="blue-woolrooms" block="only-blue" message="{region.error.modify.own-wool}"/>
+    <apply region="blue-woolrooms" enter="only-blue" message="{region.error.enter.own-wool}"/>
+    <apply region="void-regions" block="deny-void" message="{region.error.modify.void}"/>
+</applicators>
+<wools>
+    <wool team="red-team" color="yellow" source="yellow-woolroom" destination="yellow-monument"/>
+    <wool team="red-team" color="orange" source="orange-woolroom" destination="orange-monument"/>
+    <wool team="blue-team" color="purple" source="purple-woolroom" destination="purple-monument"/>
+    <wool team="blue-team" color="pink" source="pink-woolroom" destination="pink-monument"/>
+</wools>
+<kill-rewards>
+    <reward>
+        <item material="golden apple"/>
+        <item amount="32" damage="3" material="wood"/>
+        <item amount="16" material="glass"/>
+    </reward>
+</kill-rewards>
+<items>
+    <remove>
+        <any>
+            <material>wood</material>
+            <material>glass</material>
+            <material>golden carrot</material>
+            <material>iron sword</material>
+            <material>bow</material>
+            <material>iron pickaxe</material>
+            <material>iron axe</material>
+        </any>
+    </remove>
+</items>
+<respawn delay="7s"/>
+<max-build-height>27</max-build-height>
+<timelock>on</timelock>
+<disable-crafting>
+    <recipe>minecart</recipe>
+</disable-crafting>
+</map>

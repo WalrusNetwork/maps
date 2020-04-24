@@ -1,0 +1,104 @@
+<?xml version="1.0"?>
+<map proto="2.0.0">
+<name>Limbo II</name>
+<version>1.0.0</version>
+<game>koth</game>
+<objective>{map.objective.hill.king.limit,1000}</objective>
+<authors>
+    <author uuid="5e1c0b5d-cfdd-4e10-95cd-c53f8ee92150"/> <!-- TheNoChillDude -->
+</authors>
+<teams>
+    <team id="orange" color="orange" max="10">Orange</team>
+    <team id="cyan"   color="cyan"   max="10">Cyan</team>
+</teams>
+<kits>
+    <kit id="spawn">
+        <item slot="0" material="stone sword" unsharable="true"/>
+        <item slot="1" material="bow"         unsharable="true">
+            <enchantments>
+                <enchantment>arrow infinite</enchantment>
+            </enchantments>
+        </item>
+        <item slot="2" material="golden apple" death-drop="false"/>
+        <item slot="28" material="arrow" death-drop="false"/>
+        <helmet     material="leather helmet"     team-color="true" locked="true"/>
+        <chestplate material="leather chestplate" team-color="true" locked="true"/>
+        <leggings   material="iron leggings"                        locked="true">
+            <enchantments>
+                <enchantment>protection projectile</enchantment>
+            </enchantments>
+        </leggings>
+        <boots material="leather boots" team-color="true"           locked="true"/>
+        <effect duration="5" amplifier="4">heal</effect>
+        <effect duration="5" amplifier="4">damage resistance</effect>
+        <effect>night vision</effect>
+    </kit>
+    <kit id="obs">
+        <effect>night vision</effect>
+    </kit>
+</kits>
+<hunger>off</hunger>
+<timelock>on</timelock>
+<spawns>
+    <spawn team="orange" kit="spawn">
+        <region yaw="-90">
+            <cylinder base="-52.5,19,0.5" radius="2" height="1"/>
+        </region>
+    </spawn>
+    <spawn team="cyan" kit="spawn">
+        <region yaw="90">
+            <cylinder base="53.5,19,0.5" radius="2" height="1"/>
+        </region>
+    </spawn>
+    <default kit="obs">
+        <region yaw="180">
+            <cylinder base="0.5,42,0.5" radius="2" height="1"/>
+        </region>
+    </default>
+</spawns>
+<regions>
+    <cuboid id="point-a-capture" min="-2,18,9"   max="3,22,14"/>
+    <cuboid id="point-a-control" min="-2,26,9"   max="3,31,14"/>
+    <cuboid id="point-b-capture" min="-2,18,-13" max="3,22,-8"/>
+    <cuboid id="point-b-control" min="-2,26,-13" max="3,31,-8"/>
+    <cuboid id="point-c-capture" min="-2,8,-2"   max="3,12,3"/>
+    <cuboid id="point-c-control" min="-2,21,-2"  max="3,26,3"/>
+    <cuboid id="north-jumppad" min="-1,6,-26" max="2,9,-23"/>
+    <cuboid id="south-jumppad" min="-1,6,24" max="2,9,27"/>
+    <cylinder id="north-prot" base="0.5,0,-24.5" radius="3" height="100"/>
+    <cylinder id="south-prot" base="0.5,0,25.5" radius="3" height="100"/>
+</regions>
+<applicators>
+    <region block="never"/>
+    <apply region="north-jumppad" velocity="0,1.7,0.1"/>
+    <apply region="south-jumppad" velocity="0,1.7,-0.1"/>
+</applicators>
+<score limit="1000"/>
+<hills capture-time="8s">
+    <hill name="Point A" points="1" capture-region="point-a-capture" progress-region="point-a-capture" control-region="point-a-control"/>
+    <hill name="Point B" points="1" capture-region="point-b-capture" progress-region="point-b-capture" control-region="point-b-control"/>
+    <hill name="Point C" points="2" capture-region="point-c-capture" progress-region="point-c-capture" control-region="point-c-control"/>
+</hills>
+<kill-rewards>
+    <reward>
+        <item material="golden apple"/>
+    </reward>
+</kill-rewards>
+<disabledamage>
+    <all>
+        <any>
+            <inside region="north-prot"/>
+            <inside region="south-prot"/>
+        </any>
+        <damage>fall</damage>
+    </all>
+</disabledamage>
+<items>
+    <death-drop>
+        <any>
+            <material>golden apple</material>
+            <material>arrow</material>
+        </any>
+    </death-drop>
+</items>
+</map>

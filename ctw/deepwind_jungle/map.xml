@@ -1,0 +1,179 @@
+<?xml version="1.0"?>
+<map proto="2.0.0">
+<name>Deepwind Jungle TE</name>
+<version>1.0.0</version>
+<game>ctw</game>
+<objective>{map.objective.capture.plural}</objective>
+<authors>
+    <author uuid="91295196-9cd2-4963-b7ec-afd1a110edbe"/> <!-- PandaBattalion -->
+</authors>
+<contributors>
+    <contributor uuid="41373965-b60a-40d5-8fad-72e61d951ea2" contribution="Aesthetics and spawn kit help"/> <!-- Rokosnocone -->
+</contributors>
+<time-limit result="objectives">45m</time-limit>
+<teams>
+    <team id="blue-team" color="blue" max="8" max-overfill="8">Blue</team>
+    <team id="red-team" color="red" max="8" max-overfill="8">Red</team>
+</teams>
+<kits>
+    <kit id="spawn-kit">
+        <item slot="0" material="stone sword"/>
+        <item slot="1" material="bow"/>
+        <item slot="2" material="iron pickaxe">
+            <enchantments>
+                <enchantment level="2">durability</enchantment>
+                <enchantment>dig speed</enchantment>
+            </enchantments>
+        </item>
+        <item slot="3" material="stone axe">
+            <enchantments>
+                <enchantment level="2">durability</enchantment>
+                <enchantment>dig speed</enchantment>
+            </enchantments>
+        </item>
+        <item slot="30" material="iron spade">
+            <enchantments>
+                <enchantment>durability</enchantment>
+            </enchantments>
+        </item>
+        <item slot="4" amount="64" damage="3" material="wood"/>
+        <item slot="31" amount="64" damage="3" material="wood"/>
+        <item slot="5" amount="16" material="glass"/>
+        <item slot="6" amount="64" material="cooked fish"/>
+        <item slot="7" material="golden apple"/>
+        <item slot="28" amount="32" material="arrow"/>
+        <helmet team-color="true" material="leather helmet"/>
+        <chestplate team-color="true" material="leather chestplate">
+            <enchantments>
+                <enchantment level="2">protection projectile</enchantment>
+            </enchantments>
+        </chestplate>
+        <leggings material="iron leggings"/>
+        <boots team-color="true" material="leather boots"/>
+    </kit>
+</kits>
+<spawns>
+    <spawn team="blue-team" kit="spawn-kit">
+        <region yaw="0">
+            <point>0,249,-83</point>
+        </region>
+    </spawn>
+    <spawn team="red-team" kit="spawn-kit">
+        <region yaw="180">
+            <point>0,249,84</point>
+        </region>
+    </spawn>
+    <default>
+        <region yaw="-90">
+            <cylinder base="-50.5,59,0.5" radius="2.5" height="0"/>
+        </region>
+    </default>
+</spawns>
+<filters>
+    <team id="only-blue">blue-team</team>
+    <team id="only-red">red-team</team>
+    <not id="deny-void">
+        <void/>
+    </not>
+    <material id="only-iron">iron block</material>
+    <not id="only-red-usage">
+        <all>
+            <material>chest</material>
+            <team>blue-team</team>
+        </all>
+    </not>
+    <not id="only-blue-usage">
+        <all>
+            <material>chest</material>
+            <team>red-team</team>
+        </all>
+    </not>
+</filters>
+<regions>
+    <negative id="void">
+        <union>
+            <rectangle id="main" min="-31,-48" max="31,49"/>
+            <rectangle id="red-gap" min="4,56" max="-4,49"/>
+            <rectangle id="blue-gap" min="-4,-55" max="4,-48"/>
+        </union>
+    </negative>
+    <union id="spawns">
+        <rectangle id="red-spawn" min="8,56" max="-8,84"/>
+        <rectangle id="blue-spawn" min="-8,-55" max="8,-83"/>
+    </union>
+    <union id="wool-rooms">
+        <union id="red-rooms">
+            <cuboid id="purple-room" min="-37,0,-60" max="-17,30,-73"/>
+            <cuboid id="yellow-room" min="17,0,-60" max="37,30,-73"/>
+        </union>
+        <union id="blue-rooms">
+            <cuboid id="green-room" min="37,0,61" max="17,30,74"/>
+            <cuboid id="cyan-room" min="-17,0,61" max="-37,30,74"/>
+        </union>
+    </union>
+    <block id="yellow-monument">1,10,81</block>
+    <block id="purple-monument">-2,10,81</block>
+    <block id="cyan-monument">-2,10,-81</block>
+    <block id="green-monument">1,10,-81</block>
+</regions>
+<applicators>
+    <apply region="spawns" block="never" message="{region.error.modify.spawn}"/>
+    <apply region="red-spawn" enter="only-red" message="{region.error.enter.enemy-spawn}"/>
+    <apply region="blue-spawn" enter="only-blue" message="{region.error.enter.enemy-spawn}"/>
+    <apply region="red-rooms" block="only-red" message="{region.error.modify.own-wool}"/>
+    <apply region="blue-rooms" block="only-blue" message="{region.error.modify.own-wool}"/>
+    <apply region="red-rooms" enter="only-red" message="{region.error.enter.own-wool}"/>
+    <apply region="blue-rooms" enter="only-blue" message="{region.error.enter.own-wool}"/>
+    <apply region="red-rooms" use="only-red-usage" message="{region.error.use.own-wool}"/>
+    <apply region="blue-rooms" use="only-blue-usage" message="{region.error.use.own-wool}"/>
+    <apply region="void" block="deny-void" message="{region.error.modify.outside-playable}"/>
+</applicators>
+<wools>
+    <wool team="blue-team" color="cyan" source="cyan-room" destination="cyan-monument"/>
+    <wool team="blue-team" color="green" source="green-room" destination="green-monument"/>
+    <wool team="red-team" color="purple" source="purple-room" destination="purple-monument"/>
+    <wool team="red-team" color="yellow" source="yellow-room" destination="yellow-monument"/>
+</wools>
+<kill-rewards>
+    <reward>
+        <item material="golden apple"/>
+        <item amount="32" damage="3" material="wood"/>
+        <item amount="4" material="glass"/>
+        <item amount="12" material="arrow"/>
+    </reward>
+</kill-rewards>
+<items>
+    <repair>
+        <any>
+            <material>stone sword</material>
+            <material>iron spade</material>
+            <material>iron pickaxe</material>
+            <material>bow</material>
+            <material>stone axe</material>
+        </any>
+    </repair>
+    <remove>
+        <any>
+            <material>glass</material>
+            <material>leather helmet</material>
+            <material>leather chestplate</material>
+            <material>iron leggings</material>
+            <material>leather boots</material>
+            <material>fence</material>
+            <material>string</material>
+            <material>chainmail helmet</material>
+            <material>gold boots</material>
+            <material>bucket</material>
+            <material>water bucket</material>
+            <material>cocoa</material>
+            <material>cooked fish</material>
+            <material>golden apple</material>
+            <material>wood</material>
+            <material>log</material>
+            <material>iron door</material>
+        </any>
+    </remove>
+</items>
+<max-build-height>26</max-build-height>
+<autorespawn/>
+</map>

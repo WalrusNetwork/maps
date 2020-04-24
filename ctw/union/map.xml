@@ -1,0 +1,151 @@
+<map proto="2.0.0">
+<name>Union</name>
+<version>1.1.0</version>
+<objective>{map.objective.capture.plural}</objective>
+<game>ctw</game>
+<authors>
+    <author uuid="2958ea4c-3501-404e-88cc-12e8632f68cc"/> <!-- NixaniaXi -->
+    <author uuid="621b2aa8-4e5f-4ed8-bd36-0ae2f8952a06"/> <!-- Strangey -->
+</authors>
+<contributors>
+    <contributor uuid="9929437a-9b7d-4d7a-b05d-e22fe93ac042"/> <!-- triplezko -->
+    <contributor uuid="6bec5c3a-4934-4b19-9aa8-c7c569820f7d" contribution="Being a snake"/> <!-- Claf -->
+</contributors>
+<time-limit result="objectives">45m</time-limit>
+<teams>
+    <team id="red-team" color="red" max="8" max-overfill="8">Red</team>
+    <team id="blue-team" color="blue" max="8" max-overfill="8">Blue</team>
+</teams>
+<kits>
+    <kit id="spawn-kit">
+        <item slot="0" material="iron sword"/>
+        <item slot="1" material="bow">
+            <enchantments>
+                <enchantment>arrow infinite</enchantment>
+            </enchantments>
+        </item>
+        <item slot="2" material="iron pickaxe">
+            <enchantments>
+                <enchantment level="2">dig speed</enchantment>
+            </enchantments>
+        </item>
+        <item slot="3" material="iron axe">
+            <enchantments>
+                <enchantment>dig speed</enchantment>
+            </enchantments>
+        </item>
+		<item slot="4" amount="64" material="golden carrot"/>
+		<item slot="5" material="golden apple"/>
+        <item slot="6" amount="64" damage="1" material="wood"/>
+        <item slot="7" amount="64" damage="1" material="wood"/>
+        <item slot="8" amount="32" material="glass"/>
+        <item slot="28" material="arrow"/>
+        <effect duration="4" amplifier="5">damage resistance</effect>
+    </kit>
+</kits>
+<wools>
+    <wool team="red-team" color="green" source="green-woolroom" destination="green-monument"/>
+    <wool team="red-team" color="lime" source="lime-woolroom" destination="lime-monument"/>
+    <wool team="blue-team" color="purple" source="purple-woolroom" destination="purple-monument"/>
+    <wool team="blue-team" color="pink" source="pink-woolroom" destination="pink-monument"/>
+</wools>
+<filters>
+    <team id="only-red">red-team</team>
+    <team id="only-blue">blue-team</team>
+    <not id="deny-void">
+        <void/>
+    </not>
+    <not id="deny-burning-furnace">
+        <material>burning furnace</material>
+    </not>
+</filters>
+<regions>
+    <block id="green-monument">-50,8,-86</block>
+    <block id="lime-monument">-51,8,-86</block>
+    <block id="purple-monument">-33,8,56</block>
+    <block id="pink-monument">-32,8,56</block>
+    <union id="spawns">
+        <cuboid min="-55,15,-87" max="-45,5,-77"/>
+        <cuboid min="-27,15,58" max="-37,5,48"/>
+    </union>
+    <union id="red-woolrooms">
+        <cuboid id="green-woolroom" min="21,0,63" max="9,25,51"/>
+        <cuboid id="lime-woolroom" min="-65,0,60" max="-76,25,48"/>
+    </union>
+    <union id="blue-woolrooms">
+        <cuboid id="purple-woolroom" min="-103,0,-92" max="-91,25,-80"/>
+        <cuboid id="pink-woolroom" min="-17,0,-91" max="-6,25,-77"/>
+    </union>
+    <negative id="void">
+        <rectangle min="-65,-77" max="-36,-89"/>
+        <rectangle min="-100,-63" max="-88,-30"/>
+        <rectangle min="-78,-40" max="-66,-30"/>
+        <rectangle min="-100,-30" max="18,1"/>
+        <rectangle min="-17,48" max="-46,60"/>
+        <rectangle min="18,34" max="6,1"/>
+        <rectangle min="-4,11" max="-16,1"/>
+    </negative>
+</regions>
+<applicators>
+    <apply region="spawns" block="never" message="{region.error.modify.spawn}"/>
+    <apply region="red-woolrooms" block="only-red" message="{region.error.modify.own-wool}"/>
+    <apply region="red-woolrooms" enter="only-red" message="{region.error.enter.own-wool}"/>
+    <apply region="blue-woolrooms" block="only-blue" message="{region.error.modify.own-wool}"/>
+    <apply region="blue-woolrooms" enter="only-blue" message="{region.error.enter.own-wool}"/>
+    <apply region="void" block="deny-void" message="{region.error.modify.void}"/>
+    <apply use="deny-burning-furnace"/>
+</applicators>
+<spawns>
+    <spawn team="red-team" kit="spawn-kit">
+        <region yaw="0">
+            <point>-50,7,-83</point>
+        </region>
+    </spawn>
+    <spawn team="blue-team" kit="spawn-kit">
+        <region yaw="180">
+            <point>-32,7,54</point>
+        </region>
+    </spawn>
+    <default>
+        <region yaw="180">
+            <point>-41,45,-13</point>
+        </region>
+    </default>
+</spawns>
+<disable-crafting>
+	<recipe>minecart</recipe>
+	<recipe>boat</recipe>
+	<recipe>iron trapdoor</recipe>
+</disable-crafting>
+<items>
+    <repair>
+        <any>
+            <material>iron sword</material>
+            <material>bow</material>
+            <material>iron pickaxe</material>
+            <material>iron axe</material>
+        </any>
+    </repair>
+    <remove>
+        <any>
+            <material>arrow</material>
+            <material>wood</material>
+            <material>glass</material>
+            <material>golden carrot</material>
+            <material>redstone</material>
+            <material>string</material>
+            <material>iron trapdoor</material>
+        </any>
+    </remove>
+</items>
+<kill-rewards>
+    <reward>
+        <item material="golden apple"/>
+        <item amount="32" damage="1" material="wood"/>
+        <item amount="16" material="glass"/>
+    </reward>
+</kill-rewards>
+<timelock>on</timelock>
+<max-build-height>22</max-build-height>
+<respawn delay="5s"/>
+</map>

@@ -1,0 +1,195 @@
+<?xml version="1.0"?>
+<map proto="2.0.0">
+<name>Boom</name>
+<version>1.0.0</version>
+<game>dtm</game>
+<objective>{map.objective.destroy.monument.singular,100}</objective>
+<authors>
+    <author uuid="25961a08-c90c-4abd-b136-dad90e89c2eb"/> <!-- Anxuiz -->
+    <author uuid="ef4ea031-998f-4ec9-b7b6-1bdd428bcef8"/> <!-- Plastix -->
+    <author uuid="2a289d2a-d970-49c5-9a6c-01fc0264e317"/> <!-- Stealth5061 -->
+    <author uuid="2ca8072f-74be-4798-85b8-bbce03aa91af"/> <!-- Tywnis -->
+</authors>
+<time-limit result="objectives">10m</time-limit>
+<teams>
+    <team color="blue" max="8">Blue</team>
+    <team color="red" max="8">Red</team>
+</teams>
+<kits>
+    <kit id="spawn">
+        <item slot="0" material="stone sword"/>
+        <item slot="1" material="bow"/>
+        <item slot="2" material="iron pickaxe">
+            <echantments>
+                <echantment level="1">dig speed</echantment>
+            </echantments>
+        </item>
+        <item slot="3" material="iron axe">
+            <echantments>
+                <echantment level="2">dig speed</echantment>
+            </echantments>
+        </item>
+        <item slot="4" material="wood" damage="2" amount="48"/>
+        <item slot="5" material="glass" amount="24"/>
+        <item slot="7" material="arrow" amount="64"/>
+        <item slot="8" material="golden apple"/>
+        <item slot="33" material="smooth brick" amount="12"/>
+        <helmet material="leather helmet" team-color="true"/>
+        <chestplate material="iron chestplate">
+            <echantments>
+                <echantment level="5">protection explosions</echantment>
+            </echantments>
+        </chestplate>
+        <leggins material="leather leggings" team-color="true"/>
+        <boots material="leather boots" team-color="true"/>
+    </kit>
+</kits>
+<hunger>off</hunger>
+<spawns>
+    <spawm team="blue" kit="spawn">
+        <region yaw="south">
+            <point>-19.5,10,-5.5</point>
+        </region>
+        <region yaw="north">
+            <point>-19.5,10,6.5</point>
+        </region>
+    </spawm>
+    <spawn team="red" kit="spawn">
+        <region yaw="north">
+            <point>20.5,10, 6.5</point>
+        </region>
+        <region yaw="south">
+            <point>20.5,10,-5.5</point>
+        </region>
+    </spawn>
+    <default>
+        <region>
+            <cylinder base="0.5,27,-84.5" radius="1" height="0"/>
+        </region>
+    </default>
+</spawns>
+<filters>
+    <team id="only-blue">blue</team>
+    <team id="only-red">red</team>
+    <deny id="no-void">
+        <void/>
+    </deny>
+    <not id="no-beacons-anvils">
+        <any>
+            <material>anvil</material>
+            <material>beacon</material>
+        </any>
+    </not>
+    <all id="deny-player-break">
+        <actor>world</actor>
+        <any>
+            <material>gold block</material>
+            <material>wool</material>
+            <material>beacon</material>
+        </any>
+    </all>
+    <any id="only-sandstone-stairs">
+        <material>sandstone stairs</material>
+    </any>
+</filters>
+<regions>
+    <union id="monuments">
+        <cuboid id="blue-monument" min="-13,17,-35" max="-10,20,-32"/>
+        <cuboid id="red-monument" min="11,17,33" max="14,20,36"/>
+    </union>
+    <union id="bases">
+        <cuboid id="blue-base" min="-28,0,-13" max="-16,18,14"/>
+        <cuboid id="red-base" min="17,0,-13" max="29,18,14"/>
+        <intersect id="blue-ladders">
+            <below y="19"/>
+            <union>
+                <rectangle min="-19,-5" max="-17,-2"/>
+                <rectangle min="-19,3" max="-17,6"/>
+            </union>
+        </intersect>
+        <intersect id="red-ladders">
+            <below y="19"/>
+            <union>
+                <rectangle min="18,-5" max="20,-2"/>
+                <rectangle min="18,3" max="20,6"/>
+            </union>
+        </intersect>
+        <union id="tnt-spawn">
+            <rectangle min="-6,-58" max="7,-47"/>
+            <rectangle min="-6,48" max="7,59"/>
+        </union>
+    </union>
+    <point id="spawner-north">0.5,4.5,-52.5</point>
+    <sphere id="spawner-north-detect" origin="0.5,4.5,-52.5" radius="4"/>
+    <point id="spawner-south">0.5,4.5,53.5</point>
+    <sphere id="spawner-south-detect" origin="0.5,4.5,53.5" radius="4"/>
+</regions>
+<applicators>
+    <apply region="everywhere" use="no-beacons-anvils" message="{region.error.use}"/>
+    <apply region="tnt-spawn" block-break="only-sandstone-stairs" block-place="never" message="{region.error.modify}"/>
+    <apply region="bases" block="never" message="{region.error.modify.spawn}"/>
+    <apply region="blue-base" enter="only-blue" message="{region.error.enter.enemy-spawn}"/>
+    <!-- <apply region="blue-ladders" velocity="-0.5,0.5,0" filter="only-red"/> stop red going down blue ladders -->
+    <apply region="red-base" enter="only-red" message="{region.error.enter.enemy-spawn}"/>
+    <!-- <apply region="red-ladders" velocity="0.5,0.5,0" filter="only-blue"/> stop blue going down red ladders -->
+    <apply region="monuments" block-break="deny-player-break" message="{region.error.break.monument.only-tnt}"/>
+    <apply region="everywhere" block="no-void" message="{region.error.modify.void}"/>
+</applicators>
+<max-build-height>22</max-build-height>
+<spawners>
+    <spawner spawn-region="spawner-north" detect-region="spawner-north-detect" delay="20">
+        <all>
+            <item material="tnt"/>
+            <item material="redstone torch on"/>
+        </all>
+    </spawner>
+    <spawner spawn-region="spawner-south" detect-region="spawner-south-detect" delay="20">
+        <all>
+            <item material="tnt"/>
+            <item material="redstone torch on"/>
+        </all>
+    </spawner>
+</spawners>
+<monuments materials="gold block,wool:11,beacon" completion="100%">
+    <monument name="Orb" owner="blue" region="blue-monument"/>
+    <monument name="Orb" owner="red" region="red-monument"/>
+</monuments>
+<kill-reward>
+    <rewards>
+        <item material="smooth brick" amount="8"/>
+        <item material="arrow" amount="16"/>
+        <item material="golden apple"/>
+    </rewards>
+</kill-reward>
+<items>
+    <keep>
+        <any>
+            <material>arrow</material>
+            <material>golden apple</material>
+        </any>
+    </keep>
+    <remove>
+        <any>
+            <material>iron sword</material>
+            <material>bow</material>
+            <material>iron pickaxe</material>
+            <material>iron axe</material>
+            <material>leather helmet</material>
+            <material>iron chestplate</material>
+            <material>leather leggings</material>
+            <material>leather boots</material>
+            <material>apple</material>
+            <material>sapling</material>
+            <material>anvil</material>
+            <material>beacon</material>
+            <material>cobble wall</material>
+            <material>furnace</material>
+            <material>gold block</material>
+            <material>iron block</material>
+            <material>piston base</material>
+            <material>potion</material>
+            <material>wool</material>
+        </any>
+    </remove>
+</items>
+</map>

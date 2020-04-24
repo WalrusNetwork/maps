@@ -1,0 +1,93 @@
+<?xml version="1.0"?>
+<map proto="2.0.0">
+<name>Factori</name>
+<version>1.0.0</version>
+<game>koth</game>
+<objective>{map.objective.deathmatch.limit,750}</objective>
+<authors>
+    <author uuid="0b8f95fa-0f40-4f28-9fd0-b8e243bb6800"/> <!-- Fouled -->
+    <author uuid="9116d3fa-1400-4ada-aecd-2eae1d73e383"/> <!-- Xuph -->
+</authors>
+<contributors>
+    <contributor uuid="3a64dcf4-5d71-4664-80bf-4e5c54e41b86" contribution="Replicated latest update"/> <!-- Zaquez -->
+    <contributor uuid="2910d3c7-41b7-44f4-b0d3-ad055f5fcd2a" contribution="Replicated latest update"/> <!-- Sharkskill -->
+</contributors>
+<teams>
+    <team id="red"  color="red"  max="7">Red</team>
+    <team id="blue" color="blue" max="7">Blue</team>
+</teams>
+<kits>
+    <kit id="main-kit">
+        <item slot="0" material="stone sword" unsharable="true"/>
+        <item slot="1" material="bow" unsharable="true"/>
+        <item slot="2" material="golden apple" death-drop="false"/>
+        <item slot="8" material="arrow" amount="24" death-drop="false"/>
+        <helmet        material="leather helmet"     team-color="true" locked="true"/>
+        <chestplate    material="leather chestplate" team-color="true" locked="true"/>
+        <leggings      material="iron leggings"      locked="true">
+            <enchantments>
+                <enchantment>protection projectile</enchantment>
+            </enchantments>
+        </leggings>
+        <boots         material="leather boots"      team-color="true" locked="true"/>
+        <effect duration="3" amplifier="10">damage resistance</effect>
+    </kit>
+</kits>
+<hunger>off</hunger>
+<timelock>on</timelock>
+<spawns>
+    <spawn team="blue" kit="main-kit">
+        <region yaw="0">
+            <point>-11.5,9.0625,-59.5</point>
+        </region>
+    </spawn>
+    <spawn team="red" kit="main-kit">
+        <region yaw="180">
+            <point>-75.5,9.0625,-3.5</point>
+        </region>
+    </spawn>
+    <default>
+        <region yaw="90">
+            <point>-24,27,-31.5</point>
+        </region>
+    </default>
+</spawns>
+<filters>
+    <team id="only-blue">blue</team>
+    <team id="only-red">red</team>
+</filters>
+<regions>
+    <cuboid id="a-capture"  min="-57,10,-54" max="-52,13,-49"/>
+    <cuboid id="a-progress"  min="-57,9,-54" max="-52,10,-49"/>
+    <cuboid id="a-control"  min="-52,29,-52" max="-57,23,-51"/>
+    <cuboid id="middle-capture" min="-47,6,-35" max="-40,9,-28"/>
+    <cuboid id="middle-progress" min="-47,3,-35" max="-40,6,-28"/>
+    <cuboid id="middle-control" min="-37,11,-38" max="-50,13,-25"/>
+    <cuboid id="b-capture" min="-30,10,-9" max="-35,13,-14"/>
+    <cuboid id="b-progress" min="-30,9,-9" max="-35,10,-14"/>
+    <cuboid id="b-control" min="-35,29,-11" max="-30,23,-12"/>
+</regions>
+<applicators>
+    <apply block="never"/>
+</applicators>
+<score limit="750"/>
+<hills capture-time="6s" points="1">
+    <hill name="Point A" capture-region="a-capture"      progress-region="a-progress"      control-region="a-control"/>
+    <hill name="Middle"  capture-region="middle-capture" progress-region="middle-progress" control-region="middle-control"/>
+    <hill name="Point B" capture-region="b-capture"      progress-region="b-progress"      control-region="b-control"/>
+</hills>
+<kill-rewards>
+    <reward>
+        <item material="arrow" amount="12" death-drop="false"/>
+        <item material="golden apple" death-drop="false"/>
+    </reward>
+</kill-rewards>
+<items>
+    <death-drop>
+        <any>
+            <material>golden apple</material>
+            <material>arrow</material>
+        </any>
+    </death-drop>
+</items>
+</map>

@@ -1,0 +1,178 @@
+<?xml version="1.0"?>
+<map proto="2.0.0">
+<name>Oriental</name>
+<version>1.0.0</version>
+<game>ctw</game>
+<objective>{map.objective.capture.singular}</objective>
+<authors>
+    <author uuid="6bec5c3a-4934-4b19-9aa8-c7c569820f7d"/> <!-- Claf -->
+</authors>
+<contributors>
+    <contributor contribution="XML" uuid="9929437a-9b7d-4d7a-b05d-e22fe93ac042"/> <!-- triplezko -->
+</contributors>
+<time-limit results="objective">20m</time-limit>
+<teams>
+    <team id="red-team" color="red" max="5" max-overfill="5">Red</team>
+    <team id="blue-team" color="blue" max="5" max-overfill="5">Blue</team>
+</teams>
+<kits>
+    <kit id="spawn-kit">
+        <item slot="0" material="iron sword"/>
+        <item slot="1" material="bow">
+            <enchantments>
+                <enchantment>arrow infinite</enchantment>
+            </enchantments>
+        </item>
+        <item slot="2" material="diamond pickaxe"/>
+        <item slot="3" material="iron axe"/>
+        <item slot="4" amount="64" material="golden carrot"/>
+        <item slot="5" amount="64" damage="2" material="wood"/>
+        <item slot="6" amount="16" material="glass"/>
+        <item slot="7" material="iron spade"/>
+        <item slot="8" material="golden apple"/>
+        <item slot="27" material="arrow"/>
+    </kit>
+</kits>
+<spawns>
+    <spawn team="red-team" kit="spawn-kit">
+        <region yaw="-90">
+            <point>-70.5,20.0625,-38.5</point>
+        </region>
+    </spawn>
+    <spawn team="blue-team" kit="spawn-kit">
+        <region yaw="90">
+            <point>71.5,20.0625,39.5</point>
+        </region>
+    </spawn>
+    <default yaw="180">
+        <region>
+            <point>0.5,13,0.5</point>
+        </region>
+    </default>
+</spawns>
+<filters>
+    <team id="only-red">red-team</team>
+    <team id="only-blue">blue-team</team>
+    <not id="deny-void">
+        <void/>
+    </not>
+    <material id="only-iron">iron block</material>
+</filters>
+<regions>
+    <block id="orange-monument">-62,15,-34</block>
+    <block id="purple-monument">62,15,34</block>
+    <cuboid id="orange-woolroom" min="66,0,52" max="50,30,70"/>
+    <cuboid id="purple-woolroom" min="-65,0,-51" max="-49,30,-69"/>
+    <union id="renewables-region">
+        <!-- Red -->
+        <cuboid min="-64,12,-34" max="-47,32,-44"/>
+        <!-- Blue -->
+        <cuboid min="64,12,35" max="48,32,45"/>
+    </union>
+    <union id="spawns">
+        <rectangle min="-49,-41" max="-73,-31"/> <!-- red -->
+        <rectangle min="50,42" max="74,32"/> <!-- blue -->
+    </union>
+    <negative id="void">
+        <union>
+            <rectangle min="-49,-41" max="-73,-17"/> <!-- red -->
+            <rectangle min="-49,-17" max="-33,-29"/>
+            <rectangle min="-32,-32" max="-17,-17"/>
+            <rectangle min="-29,-33" max="-17,-66"/>
+            <rectangle min="-29,-54" max="-62,-66"/> <!-- purple -->
+            <rectangle min="49,41" max="73,18"/> <!-- blue -->
+            <rectangle min="33,30" max="49,18"/>
+            <rectangle min="33,33" max="18,18"/>
+            <rectangle min="30,33" max="18,67"/>
+            <rectangle min="30,55" max="62,67"/> <!-- orange -->
+            <rectangle min="-32,-17" max="34,18"/> <!-- mid -->
+            <rectangle min="-17,-17" max="34,-33"/>
+            <rectangle min="-33,34" max="18,18"/>
+        </union>
+    </negative>
+    <union id="cant-break">
+        <cuboid min="0,12,0" max="1,14,1"/> <!-- spawner blocks -->
+        <cuboid min="62,16,66" max="59,19,63"/> <!-- beacons -->
+        <cuboid min="-61,16,-65" max="-58,19,-62"/>
+    </union>
+    <point id="spawner-spawn-region">0.5,13,0.5</point>
+    <cylinder id="spawner-detect-region" base="0.5,5,0.5" radius="10" height="10"/>
+</regions>
+<applicators>
+    <apply region="cant-break" block="never"/>
+    <apply region="orange-woolroom" block="only-red" message="{region.error.modify.own-wool}"/>
+    <apply region="orange-woolroom" enter="only-red" message="{region.error.enter.own-wool}"/>
+    <apply region="purple-woolroom" block="only-blue" message="{region.error.modify.own-wool}"/>
+    <apply region="purple-woolroom" enter="only-blue" message="{region.error.enter.own-wool}"/>
+    <apply region="spawns" block-break="only-iron" block-place="never" message="{region.error.modify.spawn.only-iron}"/>
+    <apply region="void" block="deny-void" message="{region.error.modify.void}"/>
+</applicators>
+<wools>
+    <wool team="red-team" color="orange" source="orange-woolroom" destination="orange-monument"/>
+    <wool team="blue-team" color="purple" source="purple-woolroom" destination="purple-monument"/>
+</wools>
+<renewables>
+    <renewable region="renewables-region" renew-filter="only-iron"/>
+</renewables>
+<spawners>
+    <spawner spawn-region="spawner-spawn-region" detect-region="spawner-detect-region" delay="7">
+        <all>
+            <item material="golden apple"/>
+        </all>
+    </spawner>
+</spawners>
+<kill-rewards>
+    <reward>
+        <item material="golden apple"/>
+        <item amount="16" damage="2" material="wood"/>
+        <item amount="8" material="glass"/>
+    </reward>
+</kill-rewards>
+<items>
+    <repair>
+        <any>
+            <material>iron sword</material>
+            <material>bow</material>
+            <material>diamond pickaxe</material>
+            <material>iron axe</material>
+        </any>
+    </repair>
+    <remove>
+        <any>
+            <material>smooth brick</material>
+            <material>wood</material>
+            <material>golden carrot</material>
+            <material>stone</material>
+            <material>glowstone dust</material>
+            <material>banner</material>
+            <material>double step</material>
+            <material>apple</material>
+            <material>leaves</material>
+            <material>stained clay</material>
+            <material>seeds</material>
+            <material>red rose</material>
+            <material>yellow flower</material>
+            <material>flower pot item</material>
+            <material>melon</material>
+            <material>mossy cobblestone</material>
+            <material>glass</material>
+            <material>carpet</material>
+            <material>sapling</material>
+            <material>torch</material>
+            <material>water lily</material>
+        </any>
+    </remove>
+</items>
+<max-build-height>28</max-build-height>
+<!--
+<block-drops>
+    <rule wrong-tool="true">
+        <filter>
+            <material>gravel</material>
+        </filter>
+        <drops>
+            <item material="flint"/>
+        </drops>
+    </rule>
+</block-drops> -->
+</map>

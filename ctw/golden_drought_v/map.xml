@@ -1,0 +1,107 @@
+<?xml version="1.0"?>
+<map proto="2.0.0">
+<name>Golden Drought V</name>
+<version>1.0.0</version>
+<game>ctw</game>
+<objective>{map.objective.capture.singular}</objective>
+<authors>
+    <author uuid="459fd919-0d58-401a-9601-6cab1eb721ab"/> <!-- Reshif -->
+</authors>
+<teams>
+    <team id="red-team" color="red" max="5" max-overfill="5">Red</team>
+    <team id="blue-team" color="blue" max="5" max-overfill="5">Blue</team>
+</teams>
+<time result="objectives">20m</time>
+<respawn delay="3s"/>
+<kits>
+    <kit id="spawn-kit">
+        <item slot="0" material="stone sword"/>
+        <item slot="1" material="bow"/>
+        <item slot="2" material="iron pickaxe"/>
+        <item slot="3" amount="24" damage="2" material="wood"/>
+        <item slot="4" amount="64" material="sandstone"/>
+        <item slot="5" amount="64" material="sandstone"/>
+        <item slot="6" amount="24" material="arrow"/>
+        <item slot="7" amount="2" material="golden apple"/>
+        <item slot="8" amount="24" material="cooked chicken"/>
+    </kit>
+</kits>
+<spawns>
+    <spawn team="blue-team" kit="spawn-kit">
+        <region yaw="90">
+            <point>116,4,-1281</point>
+        </region>
+    </spawn>
+    <spawn team="red-team" kit="spawn-kit">
+        <region yaw="-90">
+            <point>-43,4,-1274</point>
+        </region>
+    </spawn>
+    <default>
+        <region yaw="-90">
+            <point>36.5,15,-1277.5</point>
+        </region>
+    </default>
+</spawns>
+<filters>
+    <team id="only-red">red-team</team>
+    <team id="only-blue">blue-team</team>
+    <not id="no-void">
+        <void/>
+    </not>
+    <material id="only-gold">gold block</material>
+</filters>
+<regions>
+    <union id="spawns">
+        <cuboid min="105,0,-1289" max="121,20,-1273"/>
+        <cuboid min="-32,0,-1266" max="-48,20,-1282"/>
+    </union>
+    <block id="green-monument">-34,5,-1275</block>
+    <block id="purple-monument">106,5,-1281</block>
+    <cuboid id="green-woolroom" min="79,0,-1282" max="88,20,-1291"/>
+    <cuboid id="purple-woolroom" min="-6,0,-1273" max="-15,20,-1264"/>
+    <negative id="void">
+        <union>
+            <rectangle min="8,-1309" max="65,-1246"/>
+            <cuboid min="81,14,-1260" max="86,20,-1269"/>
+            <cuboid min="-8,14,-1286" max="-13,20,-1295"/>
+        </union>
+    </negative>
+</regions>
+<applicators>
+    <apply region="spawns" block-break="only-gold" block-place="never" message="{region.error.modify.spawn.only-gold}"/>
+    <apply region="green-woolroom" block="only-red" message="{region.error.modify.own-wool}"/>
+    <apply region="green-woolroom" enter="only-red" message="{region.error.enter.own-wool}"/>
+    <apply region="purple-woolroom" block="only-blue" message="{region.error.modify.own-wool}"/>
+    <apply region="purple-woolroom" enter="only-blue" message="{region.error.enter.own-wool}"/>
+    <apply region="void" block="no-void" message="{region.error.modify.void}"/>
+</applicators>
+<wools>
+    <wool team="red-team" color="green" source="green-woolroom" destination="green-monument"/>
+    <wool team="blue-team" color="purple" source="purple-woolroom" destination="purple-monument"/>
+</wools>
+<kill-rewards>
+    <reward>
+        <item material="golden apple"/>
+        <item amount="12" material="arrow"/>
+        <item amount="16" material="sandstone"/>
+        <item amount="12" damage="2" material="wood"/>
+    </reward>
+</kill-rewards>
+<items>
+    <remove>
+        <any>
+            <material>cooked chicken</material>
+        </any>
+    </remove>
+    <repair>
+        <any>
+            <material>stone sword</material>
+            <material>bow</material>
+            <material>iron pickaxe</material>
+        </any>
+    </repair>
+</items>
+<max-build-height>20</max-build-height>
+<timelock>on</timelock>
+</map>

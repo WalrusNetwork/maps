@@ -1,0 +1,214 @@
+<map proto="2.0.0">
+<name>NextGen</name>
+<version>1.0.0</version>
+<game>ctw</game>
+<objective>{map.objective.capture.plural}</objective>
+<authors>
+    <author uuid="dad8b95c-cf6a-44df-982e-8c8dd70201e0" contribution="Reinventing the map"/> <!-- ElectroidFilms -->
+</authors>
+<contributors>
+    <contributor uuid="ef4ea031-998f-4ec9-b7b6-1bdd428bcef8" contribution="Old map design"/> <!-- Plastix -->
+    <contributor uuid="82c796a5-c033-43be-af30-fa06496995f9" contribution="Old map design"/> <!-- IM_A_H0B0 -->
+    <contributor uuid="3c7db14d-ac4b-4e35-b2c6-3b2237f382be" contribution="Old map design and gameplay management"/> <!-- MonsieurApple -->
+    <contributor uuid="25961a08-c90c-4abd-b136-dad90e89c2eb" contribution="Old map design and item management"/> <!-- Anxuiz -->
+</contributors>
+<teams>
+    <team id="blue" color="blue" max="12">Blue</team>
+    <team id="red"  color="red"  max="12">Red</team>
+</teams>
+<kits>
+    <kit id="spawn">
+        <item slot="0"  material="iron sword"/>
+        <item slot="1"  material="bow"/>
+        <item slot="2"  material="iron pickaxe">
+            <enchantments>
+                <enchantment level="1">dig speed</enchantment>
+                <enchantment level="3">durability</enchantment>
+            </enchantments>
+        </item>
+        <item slot="3"  material="iron spade">
+            <enchantments>
+                <enchantment level="1">dig speed</enchantment>
+            </enchantments>
+        </item>
+        <item slot="4"  material="log" damage="1" amount="64"/>
+        <item slot="5"  material="cooked fish"   amount="64"/>
+        <item slot="6"  material="glass"           amount="64"/>
+        <item slot="7"  material="arrow"           amount="64"/>
+        <item slot="8"  material="arrow"           amount="64"/>
+    </kit>
+</kits>
+<spawns>
+    <spawn team="red" kit="spawn" yaw="180">
+        <region>
+            <point>-158.5,4,69.5</point>
+        </region>
+    </spawn>
+    <spawn team="blue" kit="spawn" yaw="0">
+        <region>
+            <point>-158.5,4,-42.5</point>
+        </region>
+    </spawn>
+    <default yaw="-90">
+        <region>
+            <cylinder base="-158.5,51,13.5" radius="3" height="0"/>
+        </region>
+    </default>
+</spawns>
+<filters>
+    <team id="only-blue">blue</team>
+    <team id="only-red">red</team>
+    <all id="custom-blue">
+        <team>blue</team>
+        <not>
+            <any>
+                <material>chest</material>
+                <material>workbench</material>
+            </any>
+        </not>
+    </all>
+    <all id="custom-red">
+        <team>red</team>
+        <not>
+            <any>
+                <material>chest</material>
+                <material>workbench</material>
+            </any>
+        </not>
+    </all>
+    <not id="deny-void">
+        <void/>
+    </not>
+    <not id="deny-glass">
+        <material>glass</material>
+    </not>
+</filters>
+<regions>
+    <negative id="void-exemptions">
+        <union>
+            <rectangle min="-118,70" max="-133,-43"/>
+            <rectangle min="-184,70" max="-199,-43"/>
+            <rectangle min="-184,31" max="-163,-4"/>
+            <rectangle min="-133,-4" max="-154,31"/>
+            <rectangle min="-163,7" max="-154,20"/>
+            <rectangle min="-163,-28" max="-154,-21"/>
+            <rectangle min="-163,48" max="-154,55"/>
+        </union>
+    </negative>
+    <union id="glass-lanes">
+        <rectangle min="-118,70" max="-133,-43"/>
+        <rectangle min="-184,70" max="-199,-43"/>
+    </union>
+    <union id="spawns">
+        <cuboid id="red-spawn" min="-144,0,56" max="-173,9,80"/>
+        <cuboid id="blue-spawn" min="-173,0,-29" max="-144,9,-53"/>
+    </union>
+    <union id="red-wool-rooms">
+        <union id="wool-yellow">
+            <cuboid min="-132,0,96" max="-118,50,86"/>
+            <cuboid min="-131,0,85" max="-118,50,86"/>
+            <cuboid min="-130,0,84" max="-118,50,86"/>
+            <cuboid min="-129,0,83" max="-118,50,86"/>
+            <cuboid min="-128,0,82" max="-118,50,86"/>
+        </union>
+        <union id="wool-purple">
+            <cuboid min="-185,0,96" max="-199,50,86"/>
+            <cuboid min="-186,0,85" max="-199,50,86"/>
+            <cuboid min="-187,0,84" max="-199,50,86"/>
+            <cuboid min="-188,0,83" max="-199,50,86"/>
+            <cuboid min="-189,0,82" max="-199,50,86"/>
+        </union>
+    </union>
+    <union id="blue-wool-rooms">
+        <union id="wool-orange">
+            <cuboid min="-185,0,-69" max="-199,50,-59"/>
+            <cuboid min="-186,0,-58" max="-199,50,-59"/>
+            <cuboid min="-187,0,-57" max="-199,50,-59"/>
+            <cuboid min="-188,0,-56" max="-199,50,-59"/>
+            <cuboid min="-189,0,-55" max="-199,50,-59"/>
+        </union>
+        <union id="wool-lime">
+            <cuboid min="-132,0,-69" max="-118,50,-59"/>
+            <cuboid min="-131,0,-58" max="-118,50,-59"/>
+            <cuboid min="-130,0,-57" max="-118,50,-59"/>
+            <cuboid min="-129,0,-56" max="-118,50,-59"/>
+            <cuboid min="-128,0,-55" max="-118,50,-59"/>
+        </union>
+    </union>
+    <union id="wool-placements">
+        <block id="orange-wool">-160,5,78</block>
+        <block id="lime-wool">-158,5,78</block>
+        <block id="purple-wool">-160,5,-52</block>
+        <block id="yellow-wool">-158,5,-52</block>
+    </union>
+</regions>
+<applicators>
+    <apply region="red-wool-rooms"  block="custom-blue" message="{region.error.modify.own-wool}"/>
+    <apply region="blue-wool-rooms" block="custom-red"  message="{region.error.modify.own-wool}"/>
+    <apply region="red-wool-rooms"  enter="only-blue"   message="{region.error.enter.own-wool}"/>
+    <apply region="blue-wool-rooms" enter="only-red"    message="{region.error.enter.own-wool}"/>
+    <apply region="spawns"          block="never"       message="{region.error.modify.spawn}"/>
+    <apply region="blue-spawn"      use="only-blue"     message="{region.error.use.chest}"/>
+    <apply region="red-spawn"       use="only-red"      message="{region.error.use.chest}"/>
+    <apply region="glass-lanes"     block="deny-glass"  message="You may not place glass in the side lanes!"/>
+    <apply region="void-exemptions" block="deny-void"   message="{region.error.modify.void}"/>
+</applicators>
+<max-build-height>28</max-build-height>
+<wools craftable="false">
+    <wool team="red"  color="orange" source="wool-orange" destination="orange-wool"/>
+    <wool team="red"  color="lime"   source="wool-lime"   destination="lime-wool"/>
+    <wool team="blue" color="purple" source="wool-purple" destination="purple-wool"/>
+    <wool team="blue" color="yellow" source="wool-yellow" destination="yellow-wool"/>
+</wools>
+<kill-rewards>
+    <reward>
+        <item material="golden apple"/>
+        <item material="wood" damage="1" amount="16"/>
+        <item material="glass"           amount="8"/>
+    </reward>
+</kill-rewards>
+<items>
+    <remove>
+        <any>
+            <material>string</material>
+            <material>glowstone dust</material>
+            <material>apple</material>
+            <material>sapling</material>
+            <material>sugar cane</material>
+            <material>clay ball</material>
+            <material>stone plate</material>
+            <material>sand</material>
+            <material>iron sword</material>
+            <material>bow</material>
+            <material>iron pickaxe</material>
+            <material>iron spade</material>
+            <material>log 2</material>
+            <material>wood</material>
+            <material>glass</material>
+            <material>glass bottle</material>
+            <material>golden carrot</material>
+            <material>golden apple</material>
+            <material>ladder</material>
+            <material>iron axe</material>
+        </any>
+    </remove>
+</items>
+<timelock>false</timelock>
+<!--
+<block-drops>
+    <rule wrong-tool="true">
+        <region>
+            <rectangle min="-oo,-oo" max="oo,oo"/>
+        </region>
+        <filter>
+            <any>
+                <material>gravel</material>
+            </any>
+        </filter>
+        <drops>
+            <item material="flint"/>
+        </drops>
+    </rule>
+</block-drops>
+-->
+</map>

@@ -1,0 +1,181 @@
+<?xml version="1.0"?>
+<map proto="2.0.0">
+<name>Fun Guy</name>
+<version>1.0.0</version>
+<game>ctw</game>
+<objective>{map.objective.capture.plural}</objective>
+<authors>
+    <author uuid="d563101f-4e74-4f14-8707-b8f32c54902b"/> <!-- Winneror -->
+    <author uuid="6bec5c3a-4934-4b19-9aa8-c7c569820f7d"/> <!-- Claf -->
+</authors>
+<contributors>
+    <contributor uuid="9929437a-9b7d-4d7a-b05d-e22fe93ac042"/> <!-- triplezko -->
+    <contributor uuid="5519d739-24ff-42a1-8f0e-cbe9830cb0fc"/> <!-- BigBadLoser -->
+    <contributor uuid="d71152ca-187d-43c4-9901-ba001606c655"/> <!-- wylt -->
+</contributors>
+<time-limit results="objective">45m</time-limit>
+<teams>
+    <team id="red-team" color="red" max="8" max-overfill="8">Red</team>
+    <team id="blue-team" color="blue" max="8" max-overfill="8">Blue</team>
+</teams>
+<kits>
+    <kit id="spawn-kit">
+        <item slot="0" material="iron sword"/>
+        <item slot="1" material="bow">
+            <enchantments>
+                <enchantment>arrow infinite</enchantment>
+            </enchantments>
+        </item>
+        <item slot="2" material="iron pickaxe">
+            <enchantments>
+                <enchantment>dig speed</enchantment>
+            </enchantments>
+        </item>
+        <item slot="3" material="iron axe"/>
+        <item slot="4" amount="64" material="golden carrot"/>
+        <item slot="5" material="golden apple"/>
+        <item slot="6" amount="64" damage="1" material="wood"/>
+        <item slot="7" amount="64" damage="1" material="wood"/>
+        <item slot="8" amount="64" team-color="true" material="stained clay"/>
+        <item slot="28" material="arrow"/>
+        <effect duration="6" amplifier="5">damage resistance</effect>
+    </kit>
+</kits>
+<spawns>
+    <spawn team="red-team" kit="spawn-kit">
+        <region yaw="180">
+            <point>67.5,22,-72.5</point>
+        </region>
+    </spawn>
+    <spawn team="blue-team" kit="spawn-kit">
+        <region yaw="0">
+            <point>67.5,22,-326.5</point>
+        </region>
+    </spawn>
+    <default>
+        <region yaw="0">
+            <point>67.5,14,-199.5</point>
+        </region>
+    </default>
+</spawns>
+<filters>
+    <team id="only-red">red-team</team>
+    <team id="only-blue">blue-team</team>
+    <not id="deny-void">
+        <void/>
+    </not>
+    <material id="only-iron">iron block</material>
+    <material id="only-wool">wool</material>
+</filters>
+<regions>
+    <cuboid id="spawner-region" min="67,13,-200" max="68,15,-199"/>
+    <point id="spawner-spawn-region">67.5,14,-199.5</point>
+    <sphere id="spawner-detect-region" origin="67.5,14,-199.5" radius="3"/>
+    <block id="cyan-monument">63,11,-93</block>
+    <block id="silver-monument">71,11,-93</block>
+    <block id="pink-monument">71,11,-307</block>
+    <block id="lime-monument">63,11,-307</block>
+    <union id="red-woolrooms">
+        <cuboid id="cyan-woolroom" min="-32,0,-264" max="-19,25,-277"/>
+        <cuboid id="silver-woolroom" min="167,0,-277" max="154,25,-264"/>
+    </union>
+    <union id="blue-woolrooms">
+        <cuboid id="pink-woolroom" min="167,0,-135" max="154,25,-122"/>
+        <cuboid id="lime-woolroom" min="-32,0,-122" max="-19,25,-135"/>
+    </union>
+    <union id="spawns">
+        <rectangle min="76,-68" max="58,-94"/> <!-- red -->
+        <rectangle min="59,-331" max="77,-305"/> <!-- blue -->
+    </union>
+    <union id="renewables-region">
+        <cuboid min="66,0,-102" max="59,16,-109"/> <!-- red -->
+        <cuboid min="76,0,-290" max="69,16,-297"/> <!-- blue -->
+    </union>
+    <negative id="void">
+        <rectangle min="127,-122" max="8,-158"/>
+        <rectangle min="8,-277" max="127,-241"/>
+        <rectangle min="30,-241" max="105,-158"/>
+    </negative>
+</regions>
+<applicators>
+    <apply region="spawner-region" block="never"/>
+    <apply region="red-woolrooms" block="only-red" message="{region.error.modify.own-wool}"/>
+    <apply region="red-woolrooms" enter="only-red" message="{region.error.enter.own-wool}"/>
+    <apply region="blue-woolrooms" block="only-blue" message="{region.error.modify.own-wool}"/>
+    <apply region="blue-woolrooms" enter="only-blue" message="{region.error.enter.own-wool}"/>
+    <apply region="spawns" block="never" message="{region.error.modify.spawn}"/>
+    <apply region="void" block="deny-void" message="{region.error.modify.void}"/>
+</applicators>
+<wools>
+    <wool team="red-team" color="cyan" source="cyan-woolroom" destination="cyan-monument"/>
+    <wool team="red-team" color="silver" source="silver-woolroom" destination="silver-monument"/>
+    <wool team="blue-team" color="pink" source="pink-woolroom" destination="pink-monument"/>
+    <wool team="blue-team" color="lime" source="lime-woolroom" destination="lime-monument"/>
+</wools>
+<renewables>
+    <renewable region="renewables-region" interval="10s" avoid-players="3" renew-filter="only-iron"/>
+</renewables>
+<spawners>
+    <spawner spawn-region="spawner-spawn-region" detect-region="spawner-detect-region" delay="15">
+        <any>
+            <item material="tnt"/>
+        </any>
+    </spawner>
+</spawners>
+<kill-rewards>
+    <reward>
+        <item material="golden apple"/>
+        <item material="wood" damage="1" amount="32"/>
+        <item material="stained clay" team-color="true" amount="16"/>
+    </reward>
+</kill-rewards>
+<items>
+    <remove>
+        <any>
+            <material>dirt</material>
+            <material>wood</material>
+            <material>stained clay</material>w
+            <material>golden carrot</material>
+            <material>bucket</material>
+            <material>obsidian</material>
+            <material>netherrack</material>
+            <material>ender stone</material>
+            <material>red mushroom</material>
+            <material>brown mushroom</material>
+            <material>redstone</material>
+            <material>redstone torch on</material>
+            <material>redstone torch off</material>
+            <material>dead bush</material>
+            <material>cactus</material>
+            <material>apple</material>
+            <material>sapling</material>
+            <material>red rose</material>
+            <material>yellow flower</material>
+            <material>string</material>
+            <material>water lily</material>
+            <material>cobblestone</material>
+            <material>iron trapdoor</material>
+        </any>
+    </remove>
+    <repair>
+        <any>
+            <material>iron sword</material>
+            <material>bow</material>
+            <material>iron pickaxe</material>
+            <material>iron axe</material>
+        </any>
+    </repair>
+</items>
+<max-build-height>23</max-build-height>
+<disable-crafting>
+    <recipe>minecart</recipe>
+    <recipe>boat</recipe>
+    <recipe>iron trapdoor</recipe>
+</disable-crafting>
+<timelock>on</timelock>
+<respawn delay="7s"/>
+<tnt>
+    <power>3</power>
+    <instantignite>on</instantignite>
+</tnt>
+</map>

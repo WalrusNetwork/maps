@@ -1,0 +1,106 @@
+<?xml version="1.0"?>
+<map proto="2.0.0">
+<name>Tahiti</name>
+<version>1.0.0</version>
+<game>koth</game>
+<objective>{map.objective.deathmatch.limit,750}</objective>
+<authors>
+    <author uuid="2958ea4c-3501-404e-88cc-12e8632f68cc"/> <!-- NixaniaXi -->
+      <author uuid="621b2aa8-4e5f-4ed8-bd36-0ae2f8952a06"/> <!-- Strangey -->
+</authors>
+<teams>
+    <team id="blue-team" color="blue" max="7">Blue</team>
+    <team id="red-team"  color="red"  max="7">Red</team>
+</teams>
+<kits>
+    <kit id="main-kit">
+        <item slot="0" material="stone sword" unsharable="true"/>
+        <item slot="1" material="bow" unsharable="true"/>
+        <item slot="2" material="golden apple" death-drop="false"/>
+        <item slot="8" material="arrow" amount="24" death-drop="false"/>
+        <helmet        material="leather helmet"     team-color="true" locked="true"/>
+        <chestplate    material="leather chestplate" team-color="true" locked="true"/>
+        <leggings      material="iron leggings"      locked="true">
+            <enchantments>
+                <enchantment>protection projectile</enchantment>
+            </enchantments>
+        </leggings>
+        <boots         material="leather boots"      team-color="true" locked="true"/>
+        <effect duration="3" amplifier="10">damage resistance</effect>
+    </kit>
+</kits>
+<hunger>off</hunger>
+<timelock>on</timelock>
+<spawns>
+    <spawn team="blue-team" kit="main-kit">
+        <region yaw="20">
+            <point>67.5,12,33.5</point>
+        </region>
+    </spawn>
+    <spawn team="red-team" kit="main-kit">
+        <region yaw="-20">
+            <point>-36.5,12,33.5</point>
+        </region>
+    </spawn>
+    <default>
+        <region yaw="180">
+            <point>15.5,42,52.5</point>
+        </region>
+    </default>
+</spawns>
+<filters>
+    <team id="only-blue">blue-team</team>
+    <team id="only-red">red-team</team>
+    <deny id="cant-touch-this">
+        <any>
+            <material>workbench</material>
+            <material>chest</material>
+            <material>ender chest</material>
+            <material>hopper</material>
+            <material>enchantment table</material>
+            <material>brewing stand</material>
+            <material>anvil</material>
+        </any>
+    </deny>
+</filters>
+<regions>
+    <cuboid id="blue-spawn" min="72,12,37"  max="47,0,44"/>
+    <cuboid id="red-spawn"  min="-42,12,37" max="-16,0,44"/>
+    <cuboid id="velocity-a" min="16,10,39"  max="15,11,38"/>
+    <cuboid id="velocity-b" min="16,8,11"   max="15,9,10"/>
+    <cuboid id="town-capture"  min="22,17,59" max="9,19,46"/>
+    <cuboid id="town-progress" min="22,16,59" max="9,17,46"/>
+    <cuboid id="statue-capture"  min="22,6,29" max="9,8,16"/>
+    <cuboid id="statue-progress" min="22,5,29" max="9,6,16"/>
+    <cuboid id="cavern-capture"  min="22,5,59" max="9,7,46"/>
+    <cuboid id="cavern-progress" min="22,4,59" max="9,5,46"/>
+</regions>
+<applicators>
+    <apply region="blue-spawn" enter="only-blue" message="{region.error.enter.enemy-spawn}"/>
+    <apply region="red-spawn" enter="only-red" message="{region.error.enter.enemy-spawn}"/>
+    <apply block="never"/>
+    <apply use="never"/>
+    <apply region="velocity-a" velocity="0,1.7,0.1"/>
+    <apply region="velocity-b" velocity="0,1.5,0.1"/>
+</applicators>
+<score limit="750"/>
+<hills capture-time="6s" points="1">
+    <hill name="Town Square" capture-region="town-capture"   progress-region="town-progress"   control-region="town-progress"/>
+    <hill name="Statue"      capture-region="statue-capture" progress-region="statue-progress" control-region="statue-progress"/>
+    <hill name="Cavern"      capture-region="cavern-capture" progress-region="cavern-progress" control-region="cavern-progress"/>
+</hills>
+<kill-rewards>
+    <reward>
+        <item material="arrow" amount="12" death-drop="false"/>
+        <item material="golden apple" death-drop="false"/>
+    </reward>
+</kill-rewards>
+<items>
+    <death-drop>
+        <any>
+            <material>golden apple</material>
+            <material>arrow</material>
+        </any>
+    </death-drop>
+</items>
+</map>
